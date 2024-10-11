@@ -1,0 +1,161 @@
+         <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Status Calendar</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Status</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Calendar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header Close -->
+
+        <!-- Start::row-1 -->
+        <div class="row">
+            
+            <div class="col-xl-10">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title">Status Calendar</div>
+                    </div>
+                    <div class="card-body">
+                        <div id='task-calendar'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2">
+              <div class="card custom-card"> 
+                  <div class="card-body p-0">
+                      <div id="external-events" class="border-bottom p-3">
+                          <div
+                            class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-primary border border-primary">
+                            <div class="fc-event-main">New Task</div>
+                          </div>
+                          <div
+                            class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-secondary border border-secondary"
+                            data-class="bg-secondary">
+                            <div class="fc-event-main">TODO</div>
+                          </div>
+                          <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-success border border-success"
+                            data-class="bg-success">
+                            <div class="fc-event-main">On Going</div>
+                          </div>
+                          <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-danger border border-danger"
+                            data-class="bg-danger">
+                            <div class="fc-event-main">Review</div>
+                          </div>
+                          <div
+                            class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-warning border border-warning"
+                            data-class="bg-warning">
+                            <div class="fc-event-main">Completed</div>
+                          </div> 
+                      </div>
+                      <div class="p-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <h6 class="fw-semibold">
+                            Resent Tasks :
+                          </h6>
+                          <a class="btn btn-primary-light btn-sm btn-wave" href="/tasks/list">View All</a>
+                        </div>
+                      </div>
+                     
+                      <div class="p-3">
+                        <img src="/assets/images/media/media-83.svg" alt="">
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+
+ 
+
+
+<script>
+  // sample calendar events data
+  var curYear = moment().format('YYYY');
+  var curMonth = moment().format('MM');
+  // Calendar Event Source
+    var sptCalendarEvents = {
+    id: 1, 
+  backgroundColor: '#845adf',
+  borderColor: '#845adf',
+  textColor: '#fff',
+  events: [ 
+  <% newtasks.forEach(task => { %> 
+     {
+    id: '<%=task.id%>',
+    start: '<%=moment(task.createdAt).format("YYYY-MM-DD")%>', 
+    end: '<%=moment(task.targetdate).format("YYYY-MM-DD")%>',
+    title: '#<%=task.code%> <%=task.title%>', 
+  },
+  <% }) %> ]
+};
+// Birthday Events Source
+var sptBirthdayEvents = {
+  id: 2,
+  backgroundColor: '#49b6f5',
+  borderColor: '#49b6f5',
+  textColor: '#fff',
+  events: [ 
+  <% todotasks.forEach(task => { %> 
+     {
+    id: '<%=task.id%>',
+    start: '<%=moment(task.createdAt).format("YYYY-MM-DD")%>', 
+    end: '<%=moment(task.targetdate).format("YYYY-MM-DD")%>',
+    title: '#<%=task.code%> <%=task.title%>', 
+  },
+  <% }) %> ]
+};
+var sptHolidayEvents = {
+  id: 3,
+  backgroundColor: '#26bf94',
+  borderColor: '#26bf94',
+  textColor: '#fff',
+  events: [ 
+  <% ongoingtasks.forEach(task => { %> 
+     {
+    id: '<%=task.id%>',
+    start: '<%=moment(task.createdAt).format("YYYY-MM-DD")%>', 
+    end: '<%=moment(task.targetdate).format("YYYY-MM-DD")%>',
+    title: '#<%=task.code%> <%=task.title%>', 
+  },
+  <% }) %> ]
+};
+
+var sptOtherEvents = {
+  id: 4,
+  backgroundColor: '#e6533c',
+  borderColor: '#e6533c',
+  textColor: '#fff',
+  events: [ 
+  <% reviewtasks.forEach(task => { %> 
+     {
+    id: '<%=task.id%>',
+    start: '<%=moment(task.createdAt).format("YYYY-MM-DD")%>', 
+    end: '<%=moment(task.targetdate).format("YYYY-MM-DD")%>',
+    title: '#<%=task.code%> <%=task.title%> ', 
+  },
+  <% }) %> ]
+};
+
+var sptOtherEvents2 = {
+  id: 5,
+  backgroundColor: '#f5b849',
+  borderColor: '#f5b849',
+  textColor: '#fff',
+  events: [ 
+  <% compltetasks.forEach(task => { %> 
+     {
+    id: '#<%=task.code%> <%=task.id%>',
+    start: '<%=moment(task.createdAt).format("YYYY-MM-DD")%>', 
+    end: '<%=moment(task.targetdate).format("YYYY-MM-DD")%>',
+    title: '#<%=task.code%> <%=task.title%>', 
+  },
+  <% }) %> ]
+};</script>
+ 
+ 
+<% script = '<script src="/assets/libs/moment/moment.js"></script><script src="/assets/libs/fullcalendar/main.min.js"></script><script src="/assets/js/task-calendar.js"></script>' %>

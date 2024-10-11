@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-nav-layout="horizontal" data-theme-mode="light" data-header-styles="light" data-menu-styles="light" data-toggled="close" loader="disable" data-nav-style="menu-click">
+    <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sri Amman Ice Plant - <% if (typeof title !== 'undefined') { %> <%- title %> <% } %> </title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">    
+    <link id="style" href="/assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="/assets/css/styles.css" rel="stylesheet" >
+    <link href="/assets/css/icons.css" rel="stylesheet" >
+    <link href="/assets/libs/node-waves/waves.min.css" rel="stylesheet" >
+    <link href="/assets/libs/simplebar/simplebar.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/nano.min.css">
+    <link rel="stylesheet" href="/assets/libs/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="/assets/libs/jsvectormap/css/jsvectormap.min.css">
+    <link rel="stylesheet" href="/assets/libs/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/libs/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/libs/dragula/dragula.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="/assets/libs/glightbox/css/glightbox.min.css">
+    <link rel="stylesheet" href="/assets/libs/gridjs/theme/mermaid.min.css">
+
+   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+   <script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+   <script src="/assets/js/main.js"></script>
+   <script src="/assets/js/custom.js"></script>
+
+
+   <link rel="stylesheet" href="/assets/libs/fullcalendar/main.min.css">
+</head>
+<body> 
+   
+    <div class="page">
+         <!-- app-header -->
+         <header class="app-header">
+
+            <!-- Start::main-header-container -->
+            <div class="main-header-container container-fluid">
+
+                <!-- Start::header-content-left -->
+                <div class="header-content-left">
+
+                    <!-- Start::header-element -->
+                    <div class="header-element">
+                        <div class="horizontal-logo">
+                            <a href="/dashboard" class="header-logo">
+                                <img src="/images/logo-w.png" alt="Sri Amman" class="desktop-logo">
+                                <img src="/images/logo-w.png" alt="Sri Amman" class="toggle-logo">
+                                <img src="/images/logo-w.png" alt="Sri Amman" class="desktop-dark">
+                                <img src="/images/logo-w.png" alt="Sri Amman" class="toggle-dark">
+                                <img src="/images/logo-w.png" alt="Sri Amman" class="desktop-white">
+                                <img src="/images/logo-w.png" alt="Sri Amman" class="toggle-white">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End::header-element -->
+
+                    <!-- Start::header-element -->
+                    <div class="header-element">
+                        <!-- Start::header-link -->
+                        <a aria-label="Hide Sidebar" class="sidemenu-toggle header-link animated-arrow hor-toggle horizontal-navtoggle" data-bs-toggle="sidebar" href="javascript:void(0);"><span></span></a>
+                        <!-- End::header-link -->
+                    </div>
+                    <!-- End::header-element -->
+
+                </div>
+                <!-- End::header-content-left -->
+
+                <!-- Start::header-content-right -->
+                <div class="header-content-right">  
+
+                    <!-- Start::header-element -->
+                    <div class="header-element header-theme-mode">
+                        <!-- Start::header-link|layout-setting -->
+                        <a href="javascript:void(0);" class="header-link layout-setting">
+                            <span class="light-layout">
+                                <!-- Start::header-link-icon -->
+                            <i class="bx bx-moon header-link-icon"></i>
+                                <!-- End::header-link-icon -->
+                            </span>
+                            <span class="dark-layout">
+                                <!-- Start::header-link-icon -->
+                            <i class="bx bx-sun header-link-icon"></i>
+                                <!-- End::header-link-icon -->
+                            </span>
+                        </a>
+                        <!-- End::header-link|layout-setting -->
+                    </div>
+                    <!-- End::header-element --> 
+
+                    <!-- Start::header-element -->
+                    <div class="header-element notifications-dropdown">
+                        <!-- Start::header-link|dropdown-toggle -->
+                        <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
+                            <i class="bx bx-bell header-link-icon"></i>
+                            <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary" id="notification-icon-badge">5</span>
+                        </a>
+                        <!-- End::header-link|dropdown-toggle -->
+                        <!-- Start::main-header-dropdown -->
+                        <div class="main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
+                            <div class="p-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="mb-0 fs-17 fw-semibold">Notifications</p>
+                                    <span class="badge bg-secondary-transparent" id="notifiation-data">5 Unread</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <ul class="list-unstyled mb-0" id="header-notification-scroll">
+                                <li class="dropdown-item">
+                                    <div class="d-flex align-items-start">
+                                         <div class="pe-2">
+                                             <span class="avatar avatar-md bg-primary-transparent avatar-rounded"><i class="ti ti-gift fs-18"></i></span>
+                                         </div>
+                                         <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <p class="mb-0 fw-semibold"><a href="notifications">Your Order Has Been Shipped</a></p>
+                                                <span class="text-muted fw-normal fs-12 header-notification-text">Order No: 123456 Has Shipped To Your Delivery Address</span>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="min-w-fit-content text-muted me-1 dropdown-item-close1"><i class="ti ti-x fs-16"></i></a>
+                                            </div>
+                                         </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex align-items-start">
+                                         <div class="pe-2">
+                                             <span class="avatar avatar-md bg-secondary-transparent avatar-rounded"><i class="ti ti-discount-2 fs-18"></i></span>
+                                         </div>
+                                         <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <p class="mb-0 fw-semibold"><a href="notifications">Discount Available</a></p>
+                                                <span class="text-muted fw-normal fs-12 header-notification-text">Discount Available On Selected Products</span>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="min-w-fit-content text-muted me-1 dropdown-item-close1"><i class="ti ti-x fs-16"></i></a>
+                                            </div>
+                                         </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex align-items-start">
+                                         <div class="pe-2">
+                                             <span class="avatar avatar-md bg-pink-transparent avatar-rounded"><i class="ti ti-user-check fs-18"></i></span>
+                                         </div>
+                                         <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <p class="mb-0 fw-semibold"><a href="notifications">Account Has Been Verified</a></p>
+                                                <span class="text-muted fw-normal fs-12 header-notification-text">Your Account Has Been Verified Sucessfully</span>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="min-w-fit-content text-muted me-1 dropdown-item-close1"><i class="ti ti-x fs-16"></i></a>
+                                            </div>
+                                         </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex align-items-start">
+                                         <div class="pe-2">
+                                             <span class="avatar avatar-md bg-warning-transparent avatar-rounded"><i class="ti ti-circle-check fs-18"></i></span>
+                                         </div>
+                                         <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <p class="mb-0 fw-semibold"><a href="notifications">Order Placed <span class="text-warning">ID: #1116773</span></a></p>
+                                                <span class="text-muted fw-normal fs-12 header-notification-text">Order Placed Successfully</span>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="min-w-fit-content text-muted me-1 dropdown-item-close1"><i class="ti ti-x fs-16"></i></a>
+                                            </div>
+                                         </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex align-items-start">
+                                         <div class="pe-2">
+                                             <span class="avatar avatar-md bg-success-transparent avatar-rounded"><i class="ti ti-clock fs-18"></i></span>
+                                         </div>
+                                         <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <p class="mb-0 fw-semibold"><a href="notifications">Order Delayed <span class="text-success">ID: 7731116</span></a></p>
+                                                <span class="text-muted fw-normal fs-12 header-notification-text">Order Delayed Unfortunately</span>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="min-w-fit-content text-muted me-1 dropdown-item-close1"><i class="ti ti-x fs-16"></i></a>
+                                            </div>
+                                         </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="p-3 empty-header-item1 border-top">
+                                <div class="d-grid">
+                                    <a href="notifications" class="btn btn-primary">View All</a>
+                                </div>
+                            </div>
+                            <div class="p-5 empty-item1 d-none">
+                                <div class="text-center">
+                                    <span class="avatar avatar-xl avatar-rounded bg-secondary-transparent">
+                                        <i class="ri-notification-off-line fs-2"></i>
+                                    </span>
+                                    <h6 class="fw-semibold mt-3">No New Notifications</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End::main-header-dropdown -->
+                    </div>
+                    <!-- End::header-element --> 
+
+                    <!-- Start::header-element -->
+                    <div class="header-element header-fullscreen">
+                        <!-- Start::header-link -->
+                        <a onclick="openFullscreen();" href="javascript:void(0);" class="header-link">
+                            <i class="bx bx-fullscreen full-screen-open header-link-icon"></i>
+                            <i class="bx bx-exit-fullscreen full-screen-close header-link-icon d-none"></i>
+                        </a>
+                        <!-- End::header-link -->
+                    </div>
+                    <!-- End::header-element -->
+
+                    <!-- Start::header-element -->
+                    <div class="header-element">
+                        <!-- Start::header-link|dropdown-toggle -->
+                        <a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <div class="me-sm-2 me-0">
+                                    <img src="/<%= user.profilepic %>" alt="img" width="32" height="32" class="rounded-circle">
+                                </div>
+                                <div class="d-sm-block d-none">
+                                    <p class="fw-semibold mb-0 lh-1"><%= user.firstname %> <%= user.lastname %>
+                                    <span class="op-7 fw-normal d-block fs-11"><%= user.role %>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- End::header-link|dropdown-toggle -->
+                        <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="mainHeaderProfile">
+                            <li><a class="dropdown-item d-flex" href="profile"><i class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
+                            <li><a class="dropdown-item d-flex" href="mail"><i class="ti ti-inbox fs-18 me-2 op-7"></i>Inbox <span class="badge bg-success-transparent ms-auto">25</span></a></li>
+                             <li><a class="dropdown-item d-flex" href="/settings"><i class="ti ti-adjustments-horizontal fs-18 me-2 op-7"></i>Settings</a></li>
+                             <li><a class="dropdown-item d-flex" href="/logout"><i class="ti ti-logout fs-18 me-2 op-7"></i>Log Out</a></li>
+                        </ul>
+                    </div>  
+                    <!-- End::header-element -->
+
+                    <!-- Start::header-element -->
+                    <div class="header-element">
+                        <!-- Start::header-link|switcher-icon -->
+                        <a href="javascript:void(0);" class="header-link switcher-icon" data-bs-toggle="offcanvas" data-bs-target="#switcher-canvas">
+                            <i class="bx bx-cog header-link-icon"></i>
+                        </a>
+                        <!-- End::header-link|switcher-icon -->
+                    </div>
+                    <!-- End::header-element -->
+
+                </div>
+                <!-- End::header-content-right -->
+
+            </div>
+            <!-- End::main-header-container -->
+
+        </header>
+        <!-- /app-header -->
+        <!-- Start::app-sidebar -->
+        <aside class="app-sidebar sticky" id="sidebar">
+
+            <!-- Start::main-sidebar-header -->
+            <div class="main-sidebar-header">
+                <a href="/dashboard" class="header-logo">
+                    <img src="/images/logo-w.png" alt="Sri Amman" class="desktop-logo">
+                    <img src="/images/logo-w.png" alt="Sri Amman" class="toggle-logo">
+                    <img src="/images/logo-w.png" alt="Sri Amman" class="desktop-dark">
+                    <img src="/images/logo-w.png" alt="Sri Amman" class="toggle-dark">
+                    <img src="/images/logo-w.png" alt="Sri Amman" class="desktop-white">
+                    <img src="/images/logo-w.png" alt="Sri Amman" class="toggle-white">
+                </a>
+            </div>
+            <!-- End::main-sidebar-header -->
+
+            <!-- Start::main-sidebar -->
+            <div class="main-sidebar" id="sidebar-scroll">
+
+                <!-- Start::nav -->
+                <nav class="main-menu-container nav nav-pills flex-column sub-open">
+                    <div class="slide-left" id="slide-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path> </svg>
+                    </div>
+                    <ul class="main-menu">
+                        <!-- Start::slide__category -->
+                        <li class="slide__category"><span class="category-name"> </span></li>
+                        <!-- End::slide__category -->
+
+                        <!-- Start::slide -->
+                        <li class="slide">
+                            <a href="/dashboard" class="side-menu__item">
+                                <i class="bx bx-home side-menu__icon"></i>
+                                <span class="side-menu__label">Dashboards </span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a> 
+                        </li>
+                        <!-- End::slide -->
+
+                        <!-- Start::slide__category -->
+                        <li class="slide__category"><span class="category-name">Pages</span></li>
+                        <!-- End::slide__category -->
+ 
+
+                        <!-- Start::slide -->
+                        <li class="slide ">
+                            <a href="/tasks/calendar" class="side-menu__item">
+                                <i class="bx bx-task side-menu__icon"></i>
+                                <span class="side-menu__label">Calendar </span>
+                             </a>
+                           
+                        </li>
+                        <!-- End::slide -->  
+     
+                        <!-- Start::slide -->
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-grid-alt side-menu__icon"></i>
+                                <span class="side-menu__label">Transactions<span class="badge bg-secondary-transparent ms-2">New</span></span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Transactions</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="javascript:void(0);" class="side-menu__item">Productions</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="javascript:void(0);" class="side-menu__item">Sales</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="javascript:void(0);" class="side-menu__item">Stock Transfer</a>
+                                </li> 
+                              
+                            </ul>
+                        </li>
+
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-layer  side-menu__icon"></i>
+                                <span class="side-menu__label">Reports </span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">All Reports</a>
+                                </li> 
+                                <li class="slide">
+                                    <a href="javascript:void(0)" class="side-menu__item">All Reports</a>
+                                </li>
+                            </ul>
+                        </li>  
+                        <li class="slide has-sub"> 
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-medal side-menu__icon"></i>
+                                <span class="side-menu__label">Customers</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Customers</a>
+                                </li> 
+                                <li class="slide">
+                                    <a href="/customers" class="side-menu__item">All Customers</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="/company" class="side-menu__item">Company</a>
+                                </li>
+                                 
+                            </ul>
+                        </li>
+
+                        <li class="slide "> 
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-time side-menu__icon"></i>
+                                <span class="side-menu__label">Openings</span>
+                             </a> 
+                        </li>
+
+                        
+
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-user-circle side-menu__icon"></i>
+                                <span class="side-menu__label">Staffs</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Staffs</a>
+                                </li> 
+                                <li class="slide">
+                                    <a href="/staffs" class="side-menu__item">All Staffs</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="/staffs/create" class="side-menu__item">Add Staff</a>
+                                </li>
+                                 
+                            </ul>
+                        </li>
+ 
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-cog side-menu__icon"></i>
+                                <span class="side-menu__label">Master</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Settings</a>
+                                </li> 
+                                <li class="slide">
+                                    <a href="/settings/goods" class="side-menu__item">Goods</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="/settings/services" class="side-menu__item">Services</a>
+                                </li>
+                                 
+                            </ul>
+                        </li> 
+ 
+
+                        <!-- Start::slide -->
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bx bx-table side-menu__icon"></i>
+                                <span class="side-menu__label">Services<span class="badge bg-success-transparent ms-2">3</span></span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu">
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Services</a>
+                                </li>
+                                <li class="slide side-menu__label1">
+                                    <a href="javascript:void(0)">Goods</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <!-- End::slide -->  
+                        <!-- Start::slide -->
+                        <li class="slide">
+                            <a href="icons" class="side-menu__item">
+                                <i class="bx bx-store-alt side-menu__icon"></i>
+                                <span class="side-menu__label">Profile</span>
+                            </a>
+                        </li> 
+                    </ul>
+                    <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>
+                </nav>
+                <!-- End::nav -->
+
+            </div>
+            <!-- End::main-sidebar -->
+
+        </aside>
+        <!-- End::app-sidebar -->
+
+        <!-- Start::app-content -->
+        <div class="main-content app-content">
+            <div class="container-fluid">
+                <%- body %>
+            </div>
+        </div>       
+        <!-- End::app-content -->
+          
+        <!-- Footer Start -->
+        <footer class="footer mt-auto py-3 bg-white text-center">
+            <div class="container">
+                <span class="text-muted"> Copyright © <span id="year"></span> <a
+                        href="javascript:void(0);" class="text-dark fw-semibold">Sri Amman Ice Plant</a>. All Rights Reserved.
+                </span>
+            </div>
+        </footer> 
+
+    </div> 
+     
+    <div class="scrollToTop">
+        <span class="arrow"><i class="ri-arrow-up-s-fill fs-20"></i></span>
+    </div>
+    <div id="responsive-overlay"></div> 
+    
+    <script src="/assets/libs/@popperjs/core/umd/popper.min.js"></script> 
+    <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script> 
+    <script src="/assets/js/defaultmenu.min.js"></script> 
+
+    <script src="/assets/libs/node-waves/waves.min.js"></script> 
+    <script src="/assets/js/sticky.js"></script> 
+    <script src="/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="/assets/js/simplebar.js"></script> 
+    <script src="/assets/libs/@simonwep/pickr/pickr.es5.min.js"></script> 
+    <script src="/assets/libs/jsvectormap/js/jsvectormap.min.js"></script> 
+    <script src="/assets/libs/jsvectormap/maps/world-merc.js"></script>    
+    <script src="/assets/libs/apexcharts/apexcharts.min.js"></script> 
+    <script src="/assets/libs/chart.js/chart.min.js"></script>  
+    <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>  
+    <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> 
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <% if (typeof script !== 'undefined') { %> <%- script %> <% } %>   
+      
+    
+</body>
+</html>

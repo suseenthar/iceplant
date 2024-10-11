@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+.pdf-generator *{
+    font-family: 'Lato', sans-serif;
+    line-height: 130%;
+}
+
+.pdf-generator {
+    padding: 25px;
+}
+
+.pdf-generator .pdf-header {
+     padding-bottom: 25px;
+     border-bottom: 3px solid #ff1b1a;
+}
+ .pdf-generator .pdf-header {
+     padding-bottom: 25px;
+     border-bottom: 3px solid #ff1b1a;
+     display: flex;
+     justify-content: space-between;
+     align-items: baseline;
+}
+ .pdf-generator .brand-name {
+     font-size: 30px;
+}
+ .pdf-generator .pdf-header {
+     padding-bottom: 25px;
+     border-bottom: 3px solid #ff1b1a;
+     display: flex;
+     justify-content: space-between;
+     align-items: baseline;
+     gap: 25px;
+     flex-wrap: wrap;
+     margin-bottom: 12px;
+}
+ .pdf-generator .pdf-title {
+     font-size: 20px;
+}
+ .pdf-generator .pdf-title span {
+     font-size: 16px;
+     font-weight: 400;
+}
+ .pdf-generator .info-box {
+     border: 3px solid #cc9e8f;
+     margin: 10px 0px;
+}
+ .pdf-generator .pdf-row {
+     display: flex;
+     width: 100%;
+     flex-wrap: wrap;
+}
+ .pdf-generator .pdf-row .pdf-col-6 {
+     width: 50%;
+}
+ .pdf-generator .pdf-row .pdf-col-4 {
+     width: 33.3%;
+}
+ .pdf-generator .pdf-row .pdf-col-12 {
+     width: 100%;
+}
+ .pdf-generator .pdf-lable-ans, .pdf-generator .pdf-lable {
+     margin: 0;
+     padding: 12px;
+     font-size: 14px;
+     min-width: 180px;
+}
+ .pdf-generator .pdf-lable {
+     width: 180px;
+}
+ .pdf-generator .pdf-lable span.small {
+     font-size: 11px;
+     font-weight: 400;
+}
+ .pdf-generator .pdf-lable span {
+     margin-left: 10px;
+}
+ .pdf-generator .pdf-row > div {
+     display: flex;
+     border-top: 1px solid #cc9e8f;
+    /* flex-wrap: wrap;
+    */
+}
+ .pdf-generator .flex-wrap {
+     flex-wrap: wrap !important;
+}
+ .pdf-generator .check-box {
+     display: flex;
+     width: 100%;
+}
+ .pdf-generator .pdf-lable {
+     background-color: #c9cacc;
+     border-right: 1px solid #cc9e8f;
+     -webkit-print-color-adjust: exact;
+}
+ .pdf-generator input[type="radio"], .pdf-generator input[type="checkbox"] {
+     -webkit-appearance: none;
+     background-color: transparent;
+     border: 2px solid #cc9e8f;
+     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+     padding: 10px;
+     display: inline-block;
+     position: relative;
+     vertical-align: middle;
+     cursor: pointer;
+     width: 20px;
+     height: 20px;
+     margin: 10px 15px;
+     -webkit-print-color-adjust: exact;
+}
+ .pdf-generator input[type="radio"]:checked, .pdf-generator input[type="checkbox"]:checked {
+     background-color: #cc9e8f;
+     background-image: url(../media/check.svg);
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: 70%;
+     -webkit-print-color-adjust: exact;
+}
+ .pdf-generator .gap-b-0 {
+     margin-bottom: 0px !important;
+}
+ .pdf-generator .gap-b-25 {
+     margin-bottom: 25px !important;
+}
+ .pdf-generator .gap-b-50 {
+     margin-bottom: 50px !important;
+}
+ .pdf-generator hr.pdf-hr {
+     border: 2px solid;
+     opacity: 0.5;
+}
+ .pdf-generator .pdf-title-2 {
+     font-size: 16px;
+     font-weight: 800;
+}
+ .pdf-generator p {
+     font-size: 16px;
+     margin-top: 4px;
+}
+ .pdf-generator .width-50 {
+     width: 50% !important;
+}
+ .pdf-generator .fotter-text {
+     font-size: 12px;
+     text-align: center;
+     color: #555;
+}
+ @media only screen and (max-width: 991px) {
+     .pdf-generator .pdf-lable-ans, .pdf-generator .pdf-lable {
+         min-width: 120px;
+    }
+     .pdf-generator .pdf-lable {
+         width: 120px;
+    }
+      .pdf-generator *, .pdf-generator p {
+         font-size: 14px;
+    }
+     .pdf-generator .pdf-title-2 {
+         font-size: 14px;
+         font-weight: 800;
+    }
+     .pdf-generator .pdf-title {
+         font-size: 16px;
+    }
+     .pdf-generator .pdf-lable-ans, .pdf-generator .pdf-lable {
+         font-size: 12px;
+    }
+}
+ @media only screen and (max-width: 767px) {
+
+    .pdf-generator .brand-name {
+        font-size: 24px;
+    }
+     .pdf-generator .pdf-row > div {
+         width: 100% !important;
+    }
+      .pdf-generator *, .pdf-generator p {
+         font-size: 12px;
+    }
+     .pdf-generator .pdf-title {
+         font-size: 14px;
+    }
+     .pdf-generator .gap-b-50 {
+         margin-bottom: 30px !important;
+    }
+     .pdf-generator .gap-b-25 {
+         margin-bottom: 20px !important;
+    }
+      .pdf-generator {
+         padding: 15px;
+    }
+}
