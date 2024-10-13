@@ -30,9 +30,7 @@ cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
 
 moduleAlias.addAliases({
   '@model'  :  __dirname + '/src/models',
-  '@controller' :  __dirname + '/src/controllers',
-  '@cron' :  __dirname + '/src/cron',
-  '@utils' :  __dirname + '/src/utils',
+  '@controller' :  __dirname + '/src/controllers',  
   '@upload'  :  __dirname + '/public/uploads',
 })  
 
@@ -40,6 +38,8 @@ var db = require('@model/config');
  
 var indexController = require('@controller/indexController');
 var dashboardController = require('@controller/dashboardController'); 
+var productionsController  = require('@controller/productionsController');
+var salesController  = require('@controller/salesController');
 var tasksController = require('@controller/tasksController'); 
 var settingsController  = require('@controller/settingsController');
 var customersController  = require('@controller/customersController');
@@ -86,6 +86,8 @@ function isAuthenticated(req, res, next) {
 
 app.use('/', indexController);
 app.use('/dashboard',isAuthenticated, dashboardController); 
+app.use('/productions',isAuthenticated, productionsController);
+app.use('/sales',isAuthenticated, salesController);
 app.use('/tasks',isAuthenticated, tasksController); 
 app.use('/settings',isAuthenticated, settingsController);
 app.use('/customers',isAuthenticated, customersController);
