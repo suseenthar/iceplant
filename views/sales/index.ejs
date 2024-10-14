@@ -23,10 +23,10 @@
                         </div>
                         <div class="d-flex">
                             
-                            <button class="btn btn-sm btn-primary btn-wave waves-light waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#create-Sales"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Sale</button> 
-                            <div class="modal fade" id="create-Sales" tabindex="-1" aria-hidden="true" style="display: none;">
+                            <button class="btn btn-sm btn-primary btn-wave waves-light waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#create-sales"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Sale</button> 
+                            <div class="modal fade" id="create-sales" tabindex="-1" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog modal-lg modal-dialog-centered">
-                                  <form method="post" id="createSales">
+                                  <form method="post" id="createsales">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h6 class="modal-title"> Sales Information</h6>
@@ -36,16 +36,16 @@
                                             <div class="row gy-2">
                                                 <div class="col-xl-6">
                                                     <label for="task-name" class="form-label">Production Name</label>
-                                                    <select class="form-control form-select" data-trigger name="Sales_id" id="Sales-name"  >
+                                                    <select class="form-control form-select" data-trigger name="production" >
                                                         <% productionlist.forEach(data => { %> 
                                                         <option value="<%=data.id%>"> <%=data.name %></option>
                                                         <% }); %>  
                                                     </select>
                                                 </div>
                                                 <div class="col-xl-6">
-                                                    <label for="task-name" class="form-label">Sales Name</label>
-                                                    <select class="form-control form-select" data-trigger name="Sales_id" id="Sales-name"  >
-                                                        <option value="">Select a Sales</option>
+                                                    <label for="task-name" class="form-label">Company Name</label>
+                                                    <select class="form-control form-select" data-trigger name="company" id="company"  >
+                                                        <option value="">Select a Company</option>
                                                         <% companylist.forEach(data => { %> 
                                                             <option value="<%=data.id%>"> <%=data.name %></option>
                                                          <% }); %>  
@@ -54,24 +54,27 @@
                                                 
                                                 <div class="col-xl-6"> 
                                                     <label for="task-id" class="form-label">Billing No</label>
-                                                    <input type="tel" class="form-control" name="phone" maxlength="10" required  >
+                                                    <input type="text" class="form-control" name="billingno" maxlength="10" required  >
                                                 </div>
                                                 <div class="col-xl-6"> 
                                                     <label for="task-id" class="form-label">Date</label>
-                                                    <input type="text" class="form-control" name="dare" id="saledate"  required readonly placeholder="Choose Date">
-                                                </div>
+                                                    <div class="input-group">
+                                                        <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                                        <input type="text" class="form-control flatpickr-input active" id="saledate" name="billingdate" placeholder="Choose date" readonly="readonly">
+                                                    </div>
+                                                 </div>
                                                 <div class="col-xl-12 p-1"></div>
                                                 <div class="col-xl-4"> 
                                                     <label for="task-id" class="form-label">Driver Name</label>
-                                                    <input type="tel" class="form-control" name="phone" maxlength="10" required  >
+                                                    <input type="text" class="form-control" name="drivername"  required  >
                                                 </div>
                                                 <div class="col-xl-4"> 
                                                     <label for="task-id" class="form-label">Vehicle No</label>
-                                                    <input type="text" class="form-control" name="address"  required >
+                                                    <input type="text" class="form-control" name="vehicleno"  required >
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <label for="task-id" class="form-label">Mobile No</label>
-                                                    <input type="text" class="form-control" name="city" required >
+                                                    <input type="tel" class="form-control" name="mobileno" required >
                                                 </div>
 
                                                 <div class="col-xl-12">
@@ -89,8 +92,8 @@
                                                             <tbody>
                                                                 <tr> 
                                                                     <td>
-                                                                        <select class="form-control form-select" data-trigger name="Sales_id" id="Sales-name"  >
-                                                                            <option value="">Select a Sales</option>
+                                                                        <select class="form-control form-select" data-trigger name="products"  required >
+                                                                            <option value="">Select a Product</option>
                                                                             <% productlist.forEach(data => { %> 
                                                                                 <option value="<%=data.id%>"> <%=data.productname %></option>
                                                                              <% }); %>    
@@ -100,20 +103,20 @@
                                                                     <td class="invoice-quantity-container">
                                                                         <div class="input-group border rounded flex-nowrap">
                                                                             <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-minus"><i class="ri-subtract-line"></i></button>
-                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100" aria-label="quantity" id="product-quantity4" value="1">
+                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100" aria-label="quantity"  id="product-quantity4"  name="productqty" value="1">
                                                                             <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-plus"><i class="ri-add-line"></i></button>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input class="form-control form-control-light" placeholder="" type="text" value="₹60.00"></td>
-                                                                    <td><input class="form-control form-control-light" placeholder="" type="text" value="₹120.00"></td>
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"   name="price"  required></td>
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"    name="total" required></td>
                                                                     <td>
                                                                         <button class="btn btn-sm btn-icon btn-danger-light"><i class="ri-delete-bin-5-line"></i></button>
                                                                     </td>
                                                                 </tr> 
                                                                 <tr> 
                                                                     <td>
-                                                                        <select class="form-control form-select" data-trigger name="Sales_id" id="Sales-name"  >
-                                                                            <option value="">Select a Sales</option>
+                                                                        <select class="form-control form-select" data-trigger name="product" required >
+                                                                            <option value="">Select a Product</option>
                                                                             <% productlist.forEach(data => { %> 
                                                                                 <option value="<%=data.id%>"> <%=data.productname %></option>
                                                                              <% }); %>    
@@ -123,19 +126,17 @@
                                                                     <td class="invoice-quantity-container">
                                                                         <div class="input-group border rounded flex-nowrap">
                                                                             <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-minus"><i class="ri-subtract-line"></i></button>
-                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100" aria-label="quantity" id="product-quantity5" value="1">
+                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100" aria-label="quantity" id="product-quantity5"   name="productqty"  value="1">
                                                                             <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-plus"><i class="ri-add-line"></i></button>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input class="form-control form-control-light" placeholder="Enter Amount" type="text" value="₹60.00"></td>
-                                                                    <td><input class="form-control form-control-light" placeholder="Enter Amount" type="text"  value="₹120.00"></td>
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"   name="price"  required></td>
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"    name="total" required></td>
                                                                     <td>
                                                                         <button class="btn btn-sm btn-icon btn-danger-light"><i class="ri-delete-bin-5-line"></i></button>
                                                                     </td>
                                                                 </tr> 
-                                                                <tr>
-                                                                    <td colspan="6" class="border-bottom-0"><a class="btn btn-light" href="javascript:void(0);"><i class="bi bi-plus-lg"></i> Add Product</a></td>
-                                                                </tr>
+                                                                
                                                                 <tr>
                                                                     <td colspan="2"></td>
                                                                     <td colspan="3">
@@ -146,8 +147,11 @@
                                                                                         <div class="fw-semibold">Sub Total :</div>
                                                                                     </th>
                                                                                     <td>
-                                                                                        <input type="text" class="form-control form-control-light invoice-amount-input" placeholder="Enter Amount" value="₹1209.89">
-                                                                                    </td>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-text text-muted"> ₹ </div>
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="subtotal" required >
+                                                                                        </div>
+                                                                                     </td>
                                                                                 </tr>
                                                                                 
                                                                               
@@ -156,8 +160,11 @@
                                                                                         <div class="fw-semibold">Vat <span class="text-danger">(20%)</span> :</div>
                                                                                     </th>
                                                                                     <td>
-                                                                                        <input type="text" class="form-control form-control-light invoice-amount-input" placeholder="Enter Amount" value="₹258.00">
-                                                                                    </td>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-text text-muted"> ₹ </div>
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="taxamount" >
+                                                                                        </div>
+                                                                                     </td>
                                                                                 </tr>
                                                                                  
                                                                                 <tr>
@@ -165,8 +172,11 @@
                                                                                         <div class="fs-14 fw-semibold">Total :</div>
                                                                                     </th>
                                                                                     <td>
-                                                                                        <input type="text" class="form-control form-control-light invoice-amount-input" placeholder="Enter Amount" value="₹1,071.89">
-                                                                                    </td>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-text text-muted"> ₹ </div>
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="grandtotal" >
+                                                                                        </div>
+                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -278,7 +288,7 @@
                                         <th scope="col">Billing No</th>                                        
                                         <th scope="col">Production</th>  
                                         <th scope="col">Customer</th>  
-                                        <th scope="col">Status</th>                                     
+                                        <th scope="col">Total</th>                                     
                                         <th scope="col">Date</th>    
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -289,25 +299,26 @@
                                         <tr class="sales-list-<%= sales.id %>">
                                              
                                             <td>
-                                                <span class="fw-semibold"><%= sales.code %></span>
+                                                <span class="fw-semibold"><%= sales.saleno %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= sales.name %></span>
+                                                <span class="fw-semibold"><%= sales.billingno %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= sales.email %></span>
+                                                <span class="fw-semibold"><%= sales.production.name %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= sales.phone %></span>
+                                                <span class="fw-semibold"><%= sales.company.name %></span>
                                             </td>
                                             <td> 
-                                                <% if (sales.status=='Active') { %> <span class="badge bg-success-transparent"> Active</span><% } else { %><span class="badge bg-danger-transparent">InActive</span><% } %> 
+                                                ₹<%= sales.grandtotal %>
                                             </td>  
                                             <td>
-                                                <%= moment(sales.createdAt).format('Do MMMM, YYYY')  %> 
+                                                <%= moment(sales.billingdate).format('Do MMMM, YYYY')  %> 
                                             </td> 
                                             <td class="text-center"> 
-                                                 <button class="btn btn-info-light btn-icon ms-1 btn-sm sales-edit-btn" data-id="<%= sales.id %>"><i class="ri-edit-line"></i></button>
+                                                <button class="btn btn-success-light btn-icon ms-1 btn-sm " data-id="<%= sales.id %>"><i class="ri-edit-line"></i></button>
+                                                 <button class="btn btn-info-light btn-icon ms-1 btn-sm " data-id="<%= sales.id %>"><i class="ri-edit-line"></i></button>
                                                 <button class="btn btn-danger-light btn-icon ms-1 btn-sm sales-delete-btn" data-id="<%= sales.id %>"><i class="ri-delete-bin-5-line"></i></button>
                                             </td>
                                         </tr> 
@@ -416,5 +427,5 @@
         </div>
         <!--End::row-1 -->
  
-        <% script = ' <script src="/assets/js/datatables.js"></script><script src="/assets/js/sales.js"></script> ' %>
+        <% script = ' <script src="/assets/js/datatables.js"></script><script src="/assets/js/create-invoice.js"></script><script src="/assets/js/sales.js"></script> ' %>
         

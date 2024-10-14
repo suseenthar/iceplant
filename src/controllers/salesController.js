@@ -10,7 +10,7 @@ const Sales = require('@model/salesModel');
 
 /*SALES */ 
 router.get('/', async function(req, res, next) {
-    const saleslist = await Sales.find({ isDeleted: false });  
+    const saleslist = await Sales.find({ isDeleted: false }).populate('production','name').populate('company','name').populate('createdBy','firstname lastname') ;  
     const companylist = await Company.find({ isDeleted: false });    
     const productionlist = await Production.find({ isDeleted: false });    
     const productlist = await Products.find({ isDeleted: false });    
@@ -24,7 +24,8 @@ router.get('/', async function(req, res, next) {
  });
 /*CREATE SALE */ 
  router.get('/create', async function(req, res, next) {
-  const saleslist = await Sales.find({ isDeleted: false });  
+  const saleslist = await Sales.find({ isDeleted: false }).populate('production','name').populate('company','name').populate('createdBy','firstname lastname') ;  
+  console.log(saleslist);
     res.render("sales/create", {
       title: "Create Sales", 
       saleslist
@@ -35,18 +36,15 @@ router.get('/', async function(req, res, next) {
  /* CREATE COMPANY. */
 router.post('/create', async function(req, res, next) {
     try {  
-    const existingEmail = await Company.findOne({ email:req.body.email });
-    if (existingEmail) {
-    return res.status(500).json({ message: 'Email already exisit' });
-    }  
+      
       const createdBy = req.user.id; 
-      const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'company' },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
-      const code = 'COM-'+sequenceDoc.sequenceval; 
+      const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'sales' },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
+      const saleno = 'SA-'+sequenceDoc.sequenceval; 
 
-      const { name, email,password, address, city,postcode,phone,url,status } = req.body;
-      const createCompany = new Company({ name,code, email,password, address, city,postcode,phone,url,status, createdBy  });
-      await createCompany.save();
-      return  res.json({ success: true, message: 'Company Created Successfully!'  });
+      const { production, company,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
+      const createSales = new Sales({ saleno,production, company,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
+      await createSales.save();
+      return  res.json({ success: true, message: 'Sales Created Successfully!'  });
     } catch (err) {
       res.status(500).send(err.message);
     }

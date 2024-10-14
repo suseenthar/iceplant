@@ -1,26 +1,26 @@
 /* DueDate Picker */
 flatpickr("#saledate", {enableTime: false,dateFormat: "Y-m-d"});
 
-//CREATE GOODS
-$('#newproduction').submit(function(event) {
+//CREATE SALES
+$('#createsales').submit(function(event) {
     event.preventDefault();  
     var formData = $(this).serialize();
  
     $.ajax({
       type: 'POST',
-      url: '/productions/create',   
+      url: '/sales/create',   
       data: formData,  
       dataType: 'json',  
     })
     .done(function(response) {   
-        $('#createproductions').modal('hide');
+        $('#create-sales').modal('hide');
         Swal.fire({
-            title: 'Production created successfully!',
+            title: 'Sales created successfully!',
             icon: 'success', 
             showDenyButton: false,
             showCancelButton: false,
         }).then(() => {
-            window.location.href = '/productions';  
+            window.location.href = '/sales';  
         });    
     })
     .fail(function(jqXHR, textStatus, errorThrown) { 
