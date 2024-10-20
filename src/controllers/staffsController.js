@@ -30,7 +30,7 @@ router.post('/create', async function(req, res, next) {
       const createdBy = req.user.id; 
       if(req.body.status){var status = 'Active';}else{var status = 'Inactive';}
       const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'user' },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
-      const uid = 'SAIP'+sequenceDoc.sequenceval; 
+      const uid = 'ADS'+sequenceDoc.sequenceval; 
 
       const { firstname, lastname, gender, phone, emergencycontact, contactperson,dob, blood, joindate, address, email,password, drivinglicence, passportno, role,profilepic } = req.body;
       const createStaff = new User({ firstname, lastname, gender, phone, emergencycontact, contactperson,dob, blood, joindate, address, email,password,uid, drivinglicence, passportno, role, status,profilepic, createdBy  });

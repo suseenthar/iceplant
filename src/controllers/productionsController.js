@@ -7,7 +7,7 @@ const Sequence = require('@model/sequenceModel');
 /* GET PRODUCTIONS. */
 router.get('/', async function(req, res, next) {
 
-  const data = await Production.find({ isDeleted: false }).populate('createdBy','firstname lastname') ;
+  const data = await Production.find({ isDeleted: false , createdBy: req.user.id  }).populate('createdBy','name') ;
  
     res.render("production/index", {
     title: "Productions List", 

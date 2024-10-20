@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
 const Sequence = require('@model/sequenceModel');
-const Company = require('@model/companyModel');
+const User = require('@model/userModel');
 
 /*COMPANY */ 
 router.get('/', async function(req, res, next) {
-    const companylist = await Company.find({ isDeleted: false });  
+    const companylist = await User.find({ isDeleted: false , isAdmin: false });  
       res.render("company/index", {
         title: "Company List", 
         companydata: companylist
@@ -18,7 +16,7 @@ router.get('/', async function(req, res, next) {
  /* CREATE COMPANY. */
 router.post('/create', async function(req, res, next) {
     try {  
-    const existingEmail = await Company.findOne({ email:req.body.email });
+    const existingEmail = await User.findOne({ email:req.body.email });
     if (existingEmail) {
     return res.status(500).json({ message: 'Email already exisit' });
     }  
@@ -26,8 +24,8 @@ router.post('/create', async function(req, res, next) {
       const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'company' },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
       const code = 'COM-'+sequenceDoc.sequenceval; 
 
-      const { name, email,password, address, city,postcode,phone,url,status } = req.body;
-      const createCompany = new Company({ name,code, email,password, address, city,postcode,phone,url,status, createdBy  });
+      const { name, email,password, address, city,postcode,phone,status } = req.body;
+      const createCompany = new User({ name,code, email,password, address, city,postcode,phone,status,role:'Company', createdBy  });
       await createCompany.save();
       return  res.json({ success: true, message: 'Company Created Successfully!'  });
     } catch (err) {
@@ -37,7 +35,7 @@ router.post('/create', async function(req, res, next) {
  
  router.post('/edit', async function(req, res, next) {
   try {
-    const Companyinfo = await Company.findById(req.body.CompanyID);
+    const Companyinfo = await User.findById(req.body.CompanyID);
     if (!Companyinfo) {
       return res.status(500).json({ message: 'Conpany Not Found' });
     }
@@ -51,11 +49,11 @@ router.post('/create', async function(req, res, next) {
 router.put('/edit', async function(req, res, next) {
 try {
    
-  const { name, email, address, city,postcode,phone,url,status } = req.body;
-  await Company.findByIdAndUpdate(req.body.company_id, {  name, email, address, city,postcode,phone,url,status });
+  const { name, email, address, city,postcode,phone,status } = req.body;
+  await User.findByIdAndUpdate(req.body.company_id, {  name, email, address, city,postcode,phone,status });
   
   if(req.body.changepassword){
-    const  Companyinfo = await Company.findById(req.body.company_id);
+    const  Companyinfo = await User.findById(req.body.company_id);
     Companyinfo.password = req.body.changepassword;
     await Companyinfo.save();
   } 

@@ -40,13 +40,10 @@ var indexController = require('@controller/indexController');
 var dashboardController = require('@controller/dashboardController'); 
 var productionsController  = require('@controller/productionsController');
 var salesController  = require('@controller/salesController');
-var tasksController = require('@controller/tasksController'); 
 var settingsController  = require('@controller/settingsController');
 var customersController  = require('@controller/customersController');
 var companyController  = require('@controller/companyController');
-var staffsController  = require('@controller/staffsController'); 
-var filesController  = require('@controller/filesController'); 
-
+  
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -88,12 +85,9 @@ app.use('/', indexController);
 app.use('/dashboard',isAuthenticated, dashboardController); 
 app.use('/productions',isAuthenticated, productionsController);
 app.use('/sales',isAuthenticated, salesController);
-app.use('/tasks',isAuthenticated, tasksController); 
 app.use('/settings',isAuthenticated, settingsController);
 app.use('/customers',isAuthenticated, customersController);
 app.use('/company',isAuthenticated, companyController);
-app.use('/staffs',isAuthenticated, staffsController); 
-app.use('/files',isAuthenticated, filesController); 
 
 // error handler
 app.use(function(err, req, res, next) {  

@@ -10,7 +10,18 @@ const User = require('@model/userModel');
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Login', layout: false });
+  res.render('login', { title: 'Manager Login', layout: false });
+});
+
+//COMPANY LOGIN
+router.post('/company-login',  passport.authenticate('local', {
+  successRedirect: session.returnTo || '/sales',
+  failureRedirect: '/', 
+})); 
+
+/* GET login page. */
+router.get('/admin', function(req, res, next) {
+  res.render('admin-login', { title: 'Admin Login', layout: false });
 });
 
 //LOGIN

@@ -10,39 +10,49 @@ const Sales = require('@model/salesModel');
 
 /*SALES */ 
 router.get('/', async function(req, res, next) {
-    const saleslist = await Sales.find({ isDeleted: false }).populate('production','name').populate('company','name').populate('createdBy','firstname lastname') ;  
-    const companylist = await Company.find({ isDeleted: false });    
-    const productionlist = await Production.find({ isDeleted: false });    
-    const productlist = await Products.find({ isDeleted: false });    
+
+    if(req.user.role=='Administrator')
+    {
+      const saleslist = await Sales.find({ isDeleted: false  }).populate('production','name').populate('customer','name').populate('createdBy','name') ;  
+      const customerlist = await Customer.find({ isDeleted: false });    
+      const productionlist = await Production.find({ isDeleted: false });   
+      const productlist = await Products.find({ isDeleted: false });    
       res.render("sales/index", {
         title: "Sales List", 
         saleslist,
-        companylist,
+        customerlist,
         productionlist,
         productlist
-    }); 
+    });  
+    }
+    else
+    {
+      const saleslist = await Sales.find({ isDeleted: false, createdBy: req.user.id  }).populate('production','name').populate('customer','name').populate('createdBy','name') ;  
+      const customerlist = await Customer.find({ isDeleted: false, createdBy: req.user.id });    
+      const productionlist = await Production.find({ isDeleted: false, createdBy: req.user.id });  
+      const productlist = await Products.find({ isDeleted: false });    
+      res.render("sales/index", {
+        title: "Sales List", 
+        saleslist,
+        customerlist,
+        productionlist,
+        productlist
+    });   
+    }
+    
+   
  });
-/*CREATE SALE */ 
- router.get('/create', async function(req, res, next) {
-  const saleslist = await Sales.find({ isDeleted: false }).populate('production','name').populate('company','name').populate('createdBy','firstname lastname') ;  
-  console.log(saleslist);
-    res.render("sales/create", {
-      title: "Create Sales", 
-      saleslist
-  }); 
-});
-
-
- /* CREATE COMPANY. */
+ 
+ 
 router.post('/create', async function(req, res, next) {
     try {  
       
       const createdBy = req.user.id; 
-      const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'sales' },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
+      const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'sales'+createdBy },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
       const saleno = 'SA-'+sequenceDoc.sequenceval; 
 
-      const { production, company,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
-      const createSales = new Sales({ saleno,production, company,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
+      const { production, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
+      const createSales = new Sales({ saleno,production, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
       await createSales.save();
       return  res.json({ success: true, message: 'Sales Created Successfully!'  });
     } catch (err) {

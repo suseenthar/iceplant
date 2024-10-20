@@ -22,8 +22,9 @@
                             List of Productions
                         </div>
                         <div class="d-flex">
+                            <% if (user.role=='Company') { %>
                             <button class="btn btn-sm btn-primary btn-wave waves-light" data-bs-toggle="modal" data-bs-target="#createproduction"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Production</button>
-                            <!-- Start::add Production modal -->
+                            <% } %> <!-- Start::add Production modal -->
                             <div class="modal fade" id="createproduction" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -108,7 +109,7 @@
                                                 <span class="fw-semibold text-success"><%= production.status %></span>
                                             </td>
                                             <td>
-                                                <%= production.createdBy.firstname %> <%= production.createdBy.lastname %>
+                                                <%= production.createdBy.firstname %> <%= production.createdBy.name %>
                                             </td>
                                             <td>
                                                 <%= moment(production.createdAt).format('Do MMMM, YYYY')  %> 

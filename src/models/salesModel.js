@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const SalesSchema = new mongoose.Schema({
     saleno: { type: String, required: true }, 
     production: { type: mongoose.Schema.Types.ObjectId, ref: 'Production' },
-    company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
     billingno: { type: String, required: true },
     billingdate: { type: String, required: true },    
     drivername: { type: String, required: true },
