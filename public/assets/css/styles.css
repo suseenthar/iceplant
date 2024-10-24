@@ -9266,7 +9266,7 @@ button {
 /*  Start::Footer*/
 @media (min-width: 992px) {
   .footer {
-    padding-inline-start: 15rem;
+    padding-inline-start: 0rem;
   }
 }
 .footer {

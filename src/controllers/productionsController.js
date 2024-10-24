@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose'); 
+const Unit = require('@model/unitModel');
 const Production = require('@model/productionModel');
 const Sequence = require('@model/sequenceModel'); 
  
@@ -15,7 +16,15 @@ router.get('/', async function(req, res, next) {
   }); 
 
   });
+/* GET CREATE. */
+router.get('/create', async function(req, res, next) {
+    const unitdata = await Unit.find({ isDeleted: false , createdBy: req.user.id  }).populate('createdBy','name') ;
+    res.render("production/create", {
+    title: "Productions Create",  
+    unitdata
+  }); 
 
+  });
  /* CREATE PRODUCTIONS. */
 router.post('/create', async function(req, res, next) {
     try {

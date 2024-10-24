@@ -38,6 +38,7 @@ var db = require('@model/config');
  
 var indexController = require('@controller/indexController');
 var dashboardController = require('@controller/dashboardController'); 
+var unitController  = require('@controller/unitController');
 var productionsController  = require('@controller/productionsController');
 var salesController  = require('@controller/salesController');
 var settingsController  = require('@controller/settingsController');
@@ -83,6 +84,7 @@ function isAuthenticated(req, res, next) {
 
 app.use('/', indexController);
 app.use('/dashboard',isAuthenticated, dashboardController); 
+app.use('/unit',isAuthenticated, unitController);
 app.use('/productions',isAuthenticated, productionsController);
 app.use('/sales',isAuthenticated, salesController);
 app.use('/settings',isAuthenticated, settingsController);
