@@ -1,10 +1,10 @@
 const mongoose = require('mongoose'); 
 
 const ProductionSchema = new mongoose.Schema({
-    name: { type: String, required: true }, 
-    code: { type: String, required: true }, 
-    startdate : { type: Date, required: true },
-    status : { type: String, enum: ['Active','Inactive'], 'default': "Active" }, 
+    unit:  { type: mongoose.Schema.Types.ObjectId, ref: 'Unit' },
+    date : { type: Date, required: true },
+    quantity: { type: String, required: true }, 
+    bars: { type: String, required: true }, 
     isDeleted: { type: Boolean, default: false }, 
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     createdAt: { type: Date, default: Date.now },

@@ -13,9 +13,9 @@ $('#newproduction').submit(function(event) {
       dataType: 'json',  
     })
     .done(function(response) {   
-        $('#createproductions').modal('hide');
+        $('#createproduction').modal('hide');
         Swal.fire({
-            title: 'Production created successfully!',
+            title: 'Production added successfully!',
             icon: 'success', 
             showDenyButton: false,
             showCancelButton: false,

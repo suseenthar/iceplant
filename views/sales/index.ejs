@@ -36,9 +36,9 @@
                                         <div class="modal-body px-4">
                                             <div class="row gy-2">
                                                 <div class="col-xl-6">
-                                                    <label for="task-name" class="form-label">Production</label>
-                                                    <select class="form-control form-select" data-trigger name="production" >
-                                                        <% productionlist.forEach(data => { %> 
+                                                    <label for="task-name" class="form-label">Unit Name</label>
+                                                    <select class="form-control form-select" data-trigger name="unit" >
+                                                        <% unitlist.forEach(data => { %> 
                                                         <option value="<%=data.id%>"> <%=data.name %></option>
                                                         <% }); %>  
                                                     </select>
@@ -163,7 +163,7 @@
                                                                                     <td>
                                                                                         <div class="input-group">
                                                                                             <div class="input-group-text text-muted"> ₹ </div>
-                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="taxamount" >
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="CGST" >
                                                                                         </div>
                                                                                      </td>
                                                                                 </tr>
@@ -175,7 +175,7 @@
                                                                                     <td>
                                                                                         <div class="input-group">
                                                                                             <div class="input-group-text text-muted"> ₹ </div>
-                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="taxamount" >
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="SGST" >
                                                                                         </div>
                                                                                      </td>
                                                                                 </tr>
@@ -300,7 +300,7 @@
                                         <th scope="col">SNO</th>
                                         <th scope="col">Billing No</th> 
                                         <th scope="col">Company</th>                                         
-                                        <th scope="col">Production</th>  
+                                        <th scope="col">Unit</th>  
                                         <th scope="col">Customer</th>  
                                         <th scope="col">Total</th>                                     
                                         <th scope="col">Date</th>    
@@ -322,7 +322,7 @@
                                                 <span class="fw-semibold"><%= sales.createdBy.name %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= sales.production.name %></span>
+                                                <span class="fw-semibold"><%= sales.unit.name %></span>
                                             </td> 
                                             <td>
                                                 <span class="fw-semibold"><%= sales.customer.name %></span>

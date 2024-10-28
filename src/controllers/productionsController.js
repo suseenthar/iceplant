@@ -8,16 +8,17 @@ const Sequence = require('@model/sequenceModel');
 /* GET PRODUCTIONS. */
 router.get('/', async function(req, res, next) {
 
-  const data = await Production.find({ isDeleted: false , createdBy: req.user.id  }).populate('createdBy','name') ;
+  const data = await Production.find({ isDeleted: false , createdBy: req.user.id  }).populate('unit','name') ;
+  const unitlist = await Unit.find({ isDeleted: false , createdBy: req.user.id  });
  
     res.render("production/index", {
     title: "Productions List", 
-    data
+    data,unitlist
   }); 
 
   });
 /* GET CREATE. */
-router.get('/create', async function(req, res, next) {
+router.get('/created', async function(req, res, next) {
     const unitdata = await Unit.find({ isDeleted: false , createdBy: req.user.id  }).populate('createdBy','name') ;
     res.render("production/create", {
     title: "Productions Create",  
@@ -29,8 +30,8 @@ router.get('/create', async function(req, res, next) {
 router.post('/create', async function(req, res, next) {
     try {
       const createdBy = req.user.id; 
-      const { name, code, status, startdate } = req.body;
-      const productions = new Production({ name, code, status, startdate, createdBy  });
+      const { unit, date, quantity, bars } = req.body;
+      const productions = new Production({ unit, date, quantity, bars, createdBy  });
       await productions.save();
       res.json({ success: true, message: 'Production Created!' });
     } catch (err) {

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
  
 const SalesSchema = new mongoose.Schema({
     saleno: { type: String, required: true }, 
-    production: { type: mongoose.Schema.Types.ObjectId, ref: 'Production' },
+    unit: { type: mongoose.Schema.Types.ObjectId, ref: 'Unit' },
     customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
     billingno: { type: String, required: true },
     billingdate: { type: String, required: true },    
@@ -14,7 +14,8 @@ const SalesSchema = new mongoose.Schema({
     price: { type: Array, required: true },
     total: { type: Array, required: true },
     subtotal: { type: String, required: true },
-    taxamount: { type: String, required: true },
+    CGST: { type: String, required: false },
+    SGST: { type: String, required: false },
     grandtotal: { type: String, required: true },
     narration: { type: String, required: false },   
     isDeleted: { type: Boolean, default: false }, 

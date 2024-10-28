@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 :root {
   --body-bg-rgb:	240, 241, 247;
-  --primary-rgb:	132,90,223;
+  --primary-rgb:	60,85,155;
   --secondary-rgb:	35, 183, 229;
   --warning-rgb:	245, 184, 73;
   --info-rgb:	73, 182, 245;
@@ -33,10 +33,10 @@
   --default-text-color:	#333335;
   --default-border:	#f3f3f3;
   --default-background:	#f7f8f9;
-  --menu-bg:	#fff;
+  --menu-bg:	#3C559B;
   --menu-prime-color:	#536485;
   --menu-border-color:	#f3f3f3;
-  --header-bg: #fff;
+  --header-bg: #3C559B;
   --header-prime-color:	#536485;
   --header-border-color:	#f3f3f3;
   --custom-white:	#fff;
@@ -521,9 +521,9 @@
 /* Header Positions Styles*/
 /* Menu Colors Styles*/
 [data-menu-styles=light] {
-  --menu-bg: #fff;
-  --menu-prime-color: #536485;
-  --menu-border-color: #f3f3f3;
+  --menu-bg: #273a6f;
+  --menu-prime-color: #FFFFFF;
+  --menu-border-color: #273a6f;
 }
 [data-menu-styles=light][data-nav-layout=vertical] .app-sidebar .main-sidebar-header .header-logo .desktop-logo {
   display: block;
@@ -543,7 +543,7 @@
   border-block-end: 1px solid #f3f3f3 !important;
 }
 [data-menu-styles=light] .app-sidebar .side-menu__item.active, [data-menu-styles=light] .app-sidebar .side-menu__item:hover {
-  background-color: #f3f6f8;
+   
 }
 @media (min-width: 992px) {
   [data-menu-styles=light][data-vertical-style=doublemenu] .slide.has-sub .slide-menu {
@@ -1002,9 +1002,9 @@
 /* Menu Colors Styles*/
 /* Header Colors Styles*/
 [data-header-styles=light] {
-  --header-bg: #fff;
-  --header-border-color: #f3f3f3;
-  --header-prime-color: #536485;
+  --header-bg: #3C559B;
+  --header-border-color: #3C559B;
+  --header-prime-color: #FFFFFF;
 }
 [data-header-styles=light] .main-header-container .country-selector .header-link {
   color: #536485;

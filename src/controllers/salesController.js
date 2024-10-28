@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Sequence = require('@model/sequenceModel');
 const Customer = require('@model/customerModel');
 const Company = require('@model/companyModel');
-const Production = require('@model/productionModel');
+const Unit = require('@model/unitModel');
 const Products = require('@model/goodsModel');
 const Sales = require('@model/salesModel');
 
@@ -13,29 +13,29 @@ router.get('/', async function(req, res, next) {
 
     if(req.user.role=='Administrator')
     {
-      const saleslist = await Sales.find({ isDeleted: false  }).populate('production','name').populate('customer','name').populate('createdBy','name') ;  
+      const saleslist = await Sales.find({ isDeleted: false  }).populate('unit','name').populate('customer','name').populate('createdBy','name') ;  
       const customerlist = await Customer.find({ isDeleted: false });    
-      const productionlist = await Production.find({ isDeleted: false });   
+      const unitlist = await Unit.find({ isDeleted: false });   
       const productlist = await Products.find({ isDeleted: false });    
       res.render("sales/index", {
         title: "Sales List", 
         saleslist,
         customerlist,
-        productionlist,
+        unitlist,
         productlist
     });  
     }
     else
     {
-      const saleslist = await Sales.find({ isDeleted: false, createdBy: req.user.id  }).populate('production','name').populate('customer','name').populate('createdBy','name') ;  
+      const saleslist = await Sales.find({ isDeleted: false, createdBy: req.user.id  }).populate('unit','name').populate('customer','name').populate('createdBy','name') ;  
       const customerlist = await Customer.find({ isDeleted: false, createdBy: req.user.id });    
-      const productionlist = await Production.find({ isDeleted: false, createdBy: req.user.id });  
+      const unitlist = await Unit.find({ isDeleted: false, createdBy: req.user.id });  
       const productlist = await Products.find({ isDeleted: false });    
       res.render("sales/index", {
         title: "Sales List", 
         saleslist,
         customerlist,
-        productionlist,
+        unitlist,
         productlist
     });   
     }
@@ -51,8 +51,8 @@ router.post('/create', async function(req, res, next) {
       const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'sales'+createdBy },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
       const saleno = 'SA-'+sequenceDoc.sequenceval; 
 
-      const { production, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
-      const createSales = new Sales({ saleno,production, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
+      const { unit, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
+      const createSales = new Sales({ saleno,unit, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
       await createSales.save();
       return  res.json({ success: true, message: 'Sales Created Successfully!'  });
     } catch (err) {

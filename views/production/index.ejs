@@ -23,9 +23,59 @@
                         </div>
                         <div class="d-flex">
                             <% if (user.role=='Company') { %>
-                            <a class="btn btn-sm btn-primary btn-wave waves-light" href="/productions/create"  ><i class="ri-add-line fw-semibold align-middle me-1"></i> Add Production</a>
+                                <button class="btn btn-sm btn-primary btn-wave waves-light" data-bs-toggle="modal" data-bs-target="#createproduction"><i class="ri-add-line fw-semibold align-middle me-1"></i>Add Production</button>
+                               
                             <% } %> <!-- Start::add Production modal -->
-                           
+                            <div class="modal fade" id="createproduction" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <form method="post" id="newproduction">
+                                        <div class="modal-header">
+                                            <h6 class="modal-title">Production Details</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body px-4">
+                                            
+                                            <div class="row gy-2">
+                                                <div class="col-xl-6">
+                                                    <label for="Units-name" class="form-label">Unit Name</label>
+                                                    <select class="form-control form-select" data-trigger name="unit" >
+                                                        <% unitlist.forEach(data => { %> 
+                                                        <option value="<%=data.id%>"> <%=data.name %></option>
+                                                        <% }); %>  
+                                                    </select>
+                                                 </div>
+                                                <div class="col-xl-6">
+                                                    <label class="form-label">Date</label>
+                                                    <div class="input-group">
+                                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                                    <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" placeholder="Choose date" readonly="readonly">
+                                                </div>
+                                                </div> 
+                                                <div class="col-xl-6">
+                                                    <label for="Units-id" class="form-label">Quantity</label>
+                                                    <input type="number" class="form-control" name="quantity" placeholder="Quantity" value="0" required>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <label for="Units-id" class="form-label">Total Bars</label>
+                                                    <input type="number" class="form-control" name="bars" placeholder="Total Bars" value="0" required>
+                                                </div>
+                                            
+                                                
+                                                 
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form> 
+                                    </div>
+                                </div>
+                            </div>
                            
                         </div>
                     </div>
@@ -34,11 +84,10 @@
                             <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Production ID</th>
-                                        <th scope="col">Production Name</th>
-                                        <th scope="col">Start Date</th>                                        
-                                        <th scope="col">Status</th>                                        
-                                        <th scope="col">Created By</th> 
+                                        <th scope="col">Date</th> 
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Bars</th>     
                                         <th scope="col">Created Date</th> 
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -48,21 +97,18 @@
 
                                         <tr class="production-list-<%= production._id %>">
                                             <td>
-                                                <span class="fw-semibold"><%= production.name %></span>
+                                                <span class="fw-semibold"> <%= moment(production.date).format('Do MMMM, YYYY')  %> </span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= production.code %></span>
+                                                <span class="fw-semibold"><%= production.unit.name %></span>
                                             </td> 
                                             
                                             <td>
-                                                <%= moment(production.startdate).format('Do MMMM, YYYY')  %>   
+                                                <%= production.quantity %>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold text-success"><%= production.status %></span>
-                                            </td>
-                                            <td>
-                                                <%= production.createdBy.firstname %> <%= production.createdBy.name %>
-                                            </td>
+                                                <%= production.bars %>
+                                            </td> 
                                             <td>
                                                 <%= moment(production.createdAt).format('Do MMMM, YYYY')  %> 
                                             </td>

@@ -23,7 +23,7 @@
                         </div>
                         <div class="d-flex">
                             <% if (user.role=='Company') { %>
-                            <button class="btn btn-sm btn-primary btn-wave waves-light" data-bs-toggle="modal" data-bs-target="#createunit"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create unit</button>
+                            <button class="btn btn-sm btn-primary btn-wave waves-light" data-bs-toggle="modal" data-bs-target="#createunit"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Unit</button>
                             <% } %> <!-- Start::add unit modal -->
                             <div class="modal fade" id="createunit" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
@@ -96,10 +96,10 @@
 
                                         <tr class="unit-list-<%= unit._id %>">
                                             <td>
-                                                <span class="fw-semibold"><%= unit.name %></span>
+                                                <span class="fw-semibold"><%= unit.code %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= unit.code %></span>
+                                                <span class="fw-semibold"><%= unit.name %></span>
                                             </td> 
                                             
                                             <td>
