@@ -19,12 +19,9 @@ router.get('/', async function(req, res, next) {
  /* CREATE CUSTOMER. */
 router.post('/create', async function(req, res, next) {
     try {   
-      const createdBy = req.user.id; 
-      const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'CUS-'+createdBy },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
-      const code = 'CUS-'+sequenceDoc.sequenceval; 
-
-      const { name,address, city,postcode,phone,status} = req.body;
-      const createCustomer = new Customer({ name,code,address, city,postcode,phone,status, createdBy  });
+      const createdBy = req.user.id;  
+      const { name,discount,address, city,postcode,phone,status} = req.body;
+      const createCustomer = new Customer({ name,discount,address, city,postcode,phone,status, createdBy  });
       await createCustomer.save();
       return  res.json({ success: true, message: 'Customer Created Successfully!'  });
     } catch (err) {
@@ -33,46 +30,21 @@ router.post('/create', async function(req, res, next) {
   });
  
 /* EDIT CUSTOMER */ 
-router.get('/view/:id', async function(req, res, next) {
+router.post('/edit', async function(req, res, next) {
   try {
-    const Customerinfo = await User.findById(req.params.id);
-    if (!Customerinfo) {
-      res.redirect('/customers?notfound');
-    }
-    res.render("customers/view", {
-      title: "View Customer Details",
-      data: Customerinfo
-    });
+    const data = await Customer.findById(req.body.id); 
+    return  res.json({ success: true, data });
   } catch (error) {
     console.error(error);
-    res.redirect('/customers');
-  }
-});
-/* EDIT CUSTOMER */ 
-router.get('/edit/:id', async function(req, res, next) {
-  try {
-    const Customerinfo = await User.findById(req.params.id);
-    if (!Customerinfo) {
-      res.redirect('/customers?notfound');
-    }
-    res.render("customers/edit", {
-      title: "Edit Customer Details",
-      data: Customerinfo
-    });
-  } catch (error) {
-    console.error(error);
-    res.redirect('/customers');
-  }
+   }
 });
 /* EDIT SAVE CUSTOMER. */
 router.put('/edit', async function(req, res, next) {
 try {
    
-  const { name,address, city,postcode,phone,status } = req.body;
-  await User.findByIdAndUpdate(req.body.Customer_id, { name,address, city,postcode,phone,status });
-  
-
-   res.json({ success: true, message: 'Customer Updated!' });
+  const { name,address, city,postcode,phone,status,discount } = req.body;
+  await Customer.findByIdAndUpdate(req.body.customerid, { name,address, city,postcode,phone,status,discount }); 
+     res.json({ success: true, message: 'Customer Updated!' });
 } catch (err) {
   res.status(500).send(err.message);
 }

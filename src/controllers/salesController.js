@@ -13,10 +13,10 @@ router.get('/', async function(req, res, next) {
 
     if(req.user.role=='Administrator')
     {
-      const saleslist = await Sales.find({ isDeleted: false  }).populate('unit','name').populate('customer','name').populate('createdBy','name') ;  
-      const customerlist = await Customer.find({ isDeleted: false });    
-      const unitlist = await Unit.find({ isDeleted: false });   
-      const productlist = await Products.find({ isDeleted: false });    
+      const saleslist = await Sales.find({ isDeleted: false, createdBy: req.user.id   }).populate('unit','name').populate('customer','name').populate('createdBy','name') ;  
+      const customerlist = await Customer.find({ isDeleted: false , createdBy: req.user.id });    
+      const unitlist = await Unit.find({ isDeleted: false, createdBy: req.user.id  });   
+      const productlist = await Products.find({ isDeleted: false, createdBy: req.user.id  });    
       res.render("sales/index", {
         title: "Sales List", 
         saleslist,
@@ -30,7 +30,7 @@ router.get('/', async function(req, res, next) {
       const saleslist = await Sales.find({ isDeleted: false, createdBy: req.user.id  }).populate('unit','name').populate('customer','name').populate('createdBy','name') ;  
       const customerlist = await Customer.find({ isDeleted: false, createdBy: req.user.id });    
       const unitlist = await Unit.find({ isDeleted: false, createdBy: req.user.id });  
-      const productlist = await Products.find({ isDeleted: false });    
+      const productlist = await Products.find({ isDeleted: false, createdBy: req.user.id  });    
       res.render("sales/index", {
         title: "Sales List", 
         saleslist,
@@ -51,8 +51,8 @@ router.post('/create', async function(req, res, next) {
       const sequenceDoc = await Sequence.findOneAndUpdate({ modelName: 'sales'+createdBy },{ $inc: { sequenceval: 1 } }, { new: true, upsert: true });    
       const saleno = 'SA-'+sequenceDoc.sequenceval; 
 
-      const { unit, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
-      const createSales = new Sales({ saleno,unit, customer,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
+      const { unit, customer,discount,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration } = req.body;
+      const createSales = new Sales({ saleno,unit, customer,discount,billingno, billingdate, drivername,vehicleno,mobileno,products,productqty,price,total,subtotal,taxamount,grandtotal,narration, createdBy  });
       await createSales.save();
       return  res.json({ success: true, message: 'Sales Created Successfully!'  });
     } catch (err) {

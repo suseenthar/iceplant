@@ -102,6 +102,56 @@ $('#createsales').submit(function(event) {
             )
         }
     })  
-  });
+  }); 
 
+
+    $('select[name="products"]').on('change', function() {
+      const selectedOption = $(this).find('option:selected'); 
+      const price = selectedOption.data('price'); 
+      if (price) {  
+        $('#product-price').val(price);
+      } else {
+        $('#product-price').val('');  
+      }
+    });
  
+
+    
+    $('select[name="customer"]').on('change', function() {
+        const selectedOption = $(this).find('option:selected'); 
+        const discount = selectedOption.data('discount'); 
+        if (discount) {  
+          $('#discount').val(discount);
+        } else {
+          $('#discount').val(0);  
+        }
+      });
+
+      $(document).ready(function() {
+
+      function calculateTotals() { 
+        const pricePerUnit = parseFloat($('#product-price').val()) || 0;
+        const quantity = parseInt($('#productqty').val()) || 0;
+        const discountPercentage = parseFloat($('#discount').val()) || 0;
+     
+        $('#price-per-unit').val(pricePerUnit.toFixed(2) * quantity);
+     
+        const subtotal = pricePerUnit * quantity;
+     
+        const discount = (subtotal * discountPercentage) / 100;
+     
+        const cgst = (subtotal - discount) * 0.05;  // 5% CGST
+        const sgst = (subtotal - discount) * 0.10;  // 10% SGST
+     
+        const grandTotal = subtotal - discount + cgst + sgst;
+     
+        $('#subtotal').val(subtotal.toFixed(2));
+        $('#total').val((subtotal - discount).toFixed(2));  
+        $('#cgst').val(cgst.toFixed(2));
+        $('#sgst').val(sgst.toFixed(2));
+        $('#grandtotal').val(grandTotal.toFixed(2));
+      } 
+        $('select[name="products"],select[name="customer"], #productqty, #discount,.proqty').on('input change click', function() {
+          calculateTotals();
+        });
+      });

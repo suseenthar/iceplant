@@ -118,3 +118,71 @@ $('#editcustomers').submit(function(event) {
         $('#edit-postcode').val(response.data.postcode); 
       }) 
   });
+
+
+
+   //EDIT CUSTOMER 
+ $('.customer-edit-btn').click(function(event) {
+    event.preventDefault();  
+    var id = $(this).attr('data-id') ;
+    var formData = {id}; 
+
+    $.ajax({
+        type: 'POST',
+        url: '/customers/edit',   
+        data: formData,  
+        dataType: 'json',  
+      })
+      .done(function(response) {   
+ 
+        $('#edit-name').val(response.data.name);
+        $('#edit-phone').val(response.data.phone);  
+        $('#edit-address').val(response.data.address); 
+        $('#edit-city').val(response.data.city);
+        $('#edit-postcode').val(response.data.postcode); 
+        $('#edit-discount').val(response.data.discount);  
+        $('#edit-status').val(response.data.status);
+        $('#edit-notes').val(response.data.notes);  
+        $('#customerid').val(response.data._id); 
+        
+        jQuery('#edit-customer').modal('show') 
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) { 
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...Validation failed', 
+          }) 
+           
+      });  
+  });
+  //UPDATE CUSTOMER
+  $('#editcustomer').submit(function(event) {
+    event.preventDefault();  
+    var formData = $(this).serialize();
+ 
+    $.ajax({
+      type: 'PUT',
+      url: '/customers/edit',   
+      data: formData,  
+      dataType: 'json',  
+    })
+    .done(function(response) {   
+        $('#edit-customer').modal('hide');
+        Swal.fire({
+            title: 'Customers updated successfully!',
+            icon: 'success', 
+            showDenyButton: false,
+            showCancelButton: false,
+        }).then(() => {
+            window.location.href = '/customers/';  
+        });   
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) { 
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...Validation failed', 
+        }) 
+         
+    });
+    return false;
+  });

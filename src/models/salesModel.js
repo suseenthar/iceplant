@@ -14,6 +14,7 @@ const SalesSchema = new mongoose.Schema({
     price: { type: Array, required: true },
     total: { type: Array, required: true },
     subtotal: { type: String, required: true },
+    discount: { type: String, required: false },
     CGST: { type: String, required: false },
     SGST: { type: String, required: false },
     grandtotal: { type: String, required: true },

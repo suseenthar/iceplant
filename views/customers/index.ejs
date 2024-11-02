@@ -23,9 +23,9 @@
                         </div>
                         <div class="d-flex">
                             <% if (user.role=='Company') { %>
-                            <button class="btn btn-sm btn-primary btn-wave waves-light waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#create-task"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Customer</button> 
+                            <button class="btn btn-sm btn-primary btn-wave waves-light waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#add-customer"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Customer</button> 
                              <% } %> 
-                             <div class="modal fade" id="create-task" tabindex="-1" aria-hidden="true" style="display: none;">
+                             <div class="modal fade" id="add-customer" tabindex="-1" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                   <form method="post" id="createcustomer">
                                     <div class="modal-content">
@@ -41,24 +41,28 @@
                                                 </div>  
                                                 <div class="col-xl-6"> 
                                                     <label for="task-id" class="form-label">Contact No</label>
-                                                    <input type="tel" class="form-control" name="phone" maxlength="10" id="edit-phone" required placeholder="9XXX XXX XXXX">
+                                                    <input type="tel" class="form-control" name="phone" maxlength="10" required placeholder="9XXX XXX XXXX">
                                                 </div>
                                                 <div class="col-xl-6"> 
                                                     <label for="task-id" class="form-label">Address</label>
-                                                    <input type="text" class="form-control" name="address" id="edit-address" required >
+                                                    <input type="text" class="form-control" name="address" required >
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <label for="task-id" class="form-label">City</label>
-                                                    <input type="text" class="form-control" name="city" id="edit-city" required >
+                                                    <input type="text" class="form-control" name="city" required >
                                                 </div>
                                                 <div class="col-xl-6"> 
                                                     <label for="task-id" class="form-label">Post Code</label>
-                                                    <input type="text" class="form-control" name="postcode" id="edit-postcode" required  maxlength="10">
+                                                    <input type="text" class="form-control" name="postcode" required  maxlength="10">
                                                 </div>  
 
                                                 <div class="col-xl-6">
-                                                    <label for="task-id" class="form-label">Contact No</label>
-                                                    <input type="tel" class="form-control" name="contactno" maxlength="10" required>
+                                                    <label for="task-id" class="form-label">Discount</label> 
+                                                    <select class="form-control form-select" data-trigger name="discount" >
+                                                        <% for (let i = 0; i <= 50; i += 5) { %>
+                                                             <option value="<%= i %>"><%= i %> %</option> 
+                                                          <% } %> 
+                                                    </select>
                                                 </div>
                                                 
                                                 <div class="col-xl-6">
@@ -83,17 +87,80 @@
                                 </form>
                                 </div>
                             </div>
+                            <div class="modal fade" id="edit-customer" tabindex="-1" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                  <form method="post" id="editcustomer">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h6 class="modal-title"> Edit Customer Information</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body px-4">
+                                            <div class="row gy-2">
+                                                <div class="col-xl-12">
+                                                    <label for="task-name" class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" name="name" placeholder="Name" id="edit-name" required>
+                                                </div>  
+                                                <div class="col-xl-6"> 
+                                                    <label for="task-id" class="form-label">Contact No</label>
+                                                    <input type="tel" class="form-control" name="phone" maxlength="10" id="edit-phone" required placeholder="9XXX XXX XXXX">
+                                                </div>
+                                                <div class="col-xl-6"> 
+                                                    <label for="task-id" class="form-label">Address</label>
+                                                    <input type="text" class="form-control" name="address" id="edit-address" required >
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <label for="task-id" class="form-label">City</label>
+                                                    <input type="text" class="form-control" name="city" id="edit-city" required >
+                                                </div>
+                                                <div class="col-xl-6"> 
+                                                    <label for="task-id" class="form-label">Post Code</label>
+                                                    <input type="text" class="form-control" name="postcode" id="edit-postcode" required  maxlength="10">
+                                                </div>  
+
+                                                <div class="col-xl-6">
+                                                    <label for="task-id" class="form-label">Discount</label> 
+                                                    <select class="form-control form-select" data-trigger name="discount" name="edit-discount" >
+                                                        <% for (let i = 0; i <= 50; i += 5) { %>
+                                                             <option value="<%= i %>"><%= i %> %</option> 
+                                                          <% } %> 
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-xl-6">
+                                                    <label class="form-label">Status</label> 
+                                                    <select class="form-control form-select" data-trigger name="status"  name="edit-status"  >
+                                                        <option value="Active">Active</option>
+                                                        <option value="Inactive">Inactive</option> 
+                                                    </select>
+                                                </div>
+                                                 
+                                                <div class="col-xl-12">
+                                                    <label class="form-label">Notes</label>
+                                                     <textarea class="form-control" name="notes"  name="edit-notes" ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" value="" id="customerid" name="customerid">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Update Customer</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Customer ID</th>
+                                    <tr> 
                                         <th scope="col">Customer Name</th>   
                                         <th scope="col">Company</th>  
-                                        <th scope="col">Phone No</th>  
+                                        <th scope="col">Phone No</th>
+                                        <th scope="col">Discount</th>  
                                         <th scope="col">Status</th>                                     
                                         <th scope="col">Created on</th>    
                                         <th class="text-center">Action</th>
@@ -103,9 +170,7 @@
                                     <% Customers.forEach(customer => { %> 
 
                                         <tr class="customer-list-<%= customer.id %>">
-                                            <td>
-                                                <span class="fw-semibold"><%= customer.code %></span>
-                                            </td> 
+                                            
                                             <td>
                                                 <span class="fw-semibold"><%= customer.name %></span>
                                             </td> 
@@ -115,6 +180,9 @@
                                             <td>
                                                 <span class="fw-semibold"><%= customer.phone %></span>
                                             </td>
+                                            <td>
+                                                <span class="fw-semibold"><%= customer.discount %> %</span>
+                                            </td>
                                             <td> 
                                                 <% if (customer.status=='Active') { %> <span class="badge bg-success-transparent"> Active</span><% } else { %><span class="badge bg-danger-transparent">InActive</span><% } %> 
                                             </td>  
@@ -123,7 +191,7 @@
                                             </td> 
                                             <td class="text-center"> 
                                                 <a class="btn btn-info-light btn-icon ms-1 btn-sm btn-success-light" href="/customers/view/<%= customer.id %>"><i class="bx bxs-user-detail"></i></a>
-                                                <a class="btn btn-info-light btn-icon ms-1 btn-sm" href="/customers/edit/<%= customer.id %>"><i class="ri-edit-line"></i></a>
+                                                <button class="btn btn-info-light btn-icon ms-1 btn-sm customer-edit-btn" data-id="<%= customer.id %>"><i class="ri-edit-line"></i></button>
                                                 <button class="btn btn-danger-light btn-icon ms-1 btn-sm customer-delete-btn" data-id="<%= customer.id %>"><i class="ri-delete-bin-5-line"></i></button>
                                             </td>
                                         </tr> 

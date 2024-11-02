@@ -48,7 +48,7 @@
                                                     <select class="form-control form-select" data-trigger name="customer" id="customer"  >
                                                         <option value="">Select a Company</option>
                                                         <% customerlist.forEach(data => { %> 
-                                                            <option value="<%=data.id%>"> <%=data.name %></option>
+                                                            <option value="<%=data.id%>"  data-discount="<%=data.discount%>"> <%=data.name %></option>
                                                          <% }); %>  
                                                     </select>
                                                 </div>
@@ -86,57 +86,31 @@
                                                                     <th width="40%">PRODUCT NAME</th>
                                                                     <th width="15%">QUANTITY</th>
                                                                     <th width="15%">PRICE PER UNIT</th> 
-                                                                    <th width="15%">TOTAL</th>
-                                                                    <th width="10%">ACTION</th>
+                                                                    <th width="15%">TOTAL</th> 
                                                                 </tr> 
                                                             </thead> 
                                                             <tbody>
                                                                 <tr> 
                                                                     <td>
-                                                                        <select class="form-control form-select" data-trigger name="products"  required >
+                                                                        <select class="form-control form-select calculateamt" data-trigger name="products"  required >
                                                                             <option value="">Select a Product</option>
                                                                             <% productlist.forEach(data => { %> 
-                                                                                <option value="<%=data.id%>"> <%=data.productname %></option>
+                                                                                <option value="<%=data.id%>" data-price="<%=data.price%>"> <%=data.productname %></option>
                                                                              <% }); %>    
                                                                         </select>
                                                                     </td>
                                                                     
                                                                     <td class="invoice-quantity-container">
                                                                         <div class="input-group border rounded flex-nowrap">
-                                                                            <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-minus"><i class="ri-subtract-line"></i></button>
-                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100" aria-label="quantity"  id="product-quantity4"  name="productqty" value="1">
-                                                                            <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-plus"><i class="ri-add-line"></i></button>
+                                                                            <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-minus proqty" type="button"><i class="ri-subtract-line"></i></button>
+                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100 calculateamt" aria-label="quantity"  id="productqty"  name="productqty" value="1">
+                                                                            <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-plus proqty" type="button"><i class="ri-add-line"></i></button>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"   name="price"  required></td>
-                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"    name="total" required></td>
-                                                                    <td>
-                                                                        <button class="btn btn-sm btn-icon btn-danger-light"><i class="ri-delete-bin-5-line"></i></button>
-                                                                    </td>
-                                                                </tr> 
-                                                                <tr> 
-                                                                    <td>
-                                                                        <select class="form-control form-select" data-trigger name="product" required >
-                                                                            <option value="">Select a Product</option>
-                                                                            <% productlist.forEach(data => { %> 
-                                                                                <option value="<%=data.id%>"> <%=data.productname %></option>
-                                                                             <% }); %>    
-                                                                        </select>
-                                                                    </td>
-                                                                    
-                                                                    <td class="invoice-quantity-container">
-                                                                        <div class="input-group border rounded flex-nowrap">
-                                                                            <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-minus"><i class="ri-subtract-line"></i></button>
-                                                                            <input type="text" class="form-control form-control-sm border-0 text-center w-100" aria-label="quantity" id="product-quantity5"   name="productqty"  value="1">
-                                                                            <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-plus"><i class="ri-add-line"></i></button>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"   name="price"  required></td>
-                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"    name="total" required></td>
-                                                                    <td>
-                                                                        <button class="btn btn-sm btn-icon btn-danger-light"><i class="ri-delete-bin-5-line"></i></button>
-                                                                    </td>
-                                                                </tr> 
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text" readonly   name="price" id="product-price"  required></td>
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text" readonly   name="total" id="price-per-unit" required></td>
+                                                                     
+                                                                </tr>  
                                                                 
                                                                 <tr>
                                                                     <td colspan="2"></td>
@@ -150,7 +124,19 @@
                                                                                     <td>
                                                                                         <div class="input-group">
                                                                                             <div class="input-group-text text-muted"> ₹ </div>
-                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="subtotal" required >
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  id="subtotal" value="0" name="subtotal" required >
+                                                                                        </div>
+                                                                                     </td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <th scope="row">
+                                                                                        <div class="fw-semibold">Discount (%) :</div>
+                                                                                    </th>
+                                                                                    <td>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-text text-muted"> ₹ </div>
+                                                                                            <input type="text"  class="form-control flatpickr-input active" value="0" name="discount" id="discount" readonly >
                                                                                         </div>
                                                                                      </td>
                                                                                 </tr>
@@ -158,24 +144,24 @@
                                                                               
                                                                                 <tr>
                                                                                     <th scope="row">
-                                                                                        <div class="fw-semibold">CGST  :</div>
+                                                                                        <div class="fw-semibold">CGST (5%) :</div>
                                                                                     </th>
                                                                                     <td>
                                                                                         <div class="input-group">
                                                                                             <div class="input-group-text text-muted"> ₹ </div>
-                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="CGST" >
+                                                                                            <input type="text"  class="form-control flatpickr-input active" value="0" name="CGST" id="cgst" readonly >
                                                                                         </div>
                                                                                      </td>
                                                                                 </tr>
 
                                                                                 <tr>
                                                                                     <th scope="row">
-                                                                                        <div class="fw-semibold">SGST  :</div>
+                                                                                        <div class="fw-semibold">SGST (10%) :</div>
                                                                                     </th>
                                                                                     <td>
                                                                                         <div class="input-group">
                                                                                             <div class="input-group-text text-muted"> ₹ </div>
-                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="SGST" >
+                                                                                            <input type="text"  class="form-control flatpickr-input active" value="0" name="SGST" id="sgst" readonly >
                                                                                         </div>
                                                                                      </td>
                                                                                 </tr>
@@ -186,8 +172,8 @@
                                                                                     </th>
                                                                                     <td>
                                                                                         <div class="input-group">
-                                                                                            <div class="input-group-text text-muted"> ₹ </div>
-                                                                                            <input type="text"  class="form-control flatpickr-input active"  placeholder="₹0.00" value="0.00" name="grandtotal" >
+                                                                                            <div class="input-group-text text-muted"> ₹ </div> 
+                                                                                            <input type="text"  class="form-control flatpickr-input active"  value="0" name="grandtotal" id="grandtotal" >
                                                                                         </div>
                                                                                      </td>
                                                                                 </tr>

@@ -69,35 +69,7 @@ try {
 
 /* GET GOODS PRODUCTS. */
 router.get('/goods', async function(req, res, next) {
-
-  const   goodsproducts = await Goods.aggregate([
-    {
-      $match: { isDeleted: false },
-    },
-    {
-      $lookup: {
-        from: 'users',         
-        localField: 'createdBy',   
-        foreignField: '_id',   
-        as: 'userdata',             
-      },
-    },
-    {
-      $project: {                   
-         productname: 1,   
-         productid: 1, 
-         status: 1, 
-         priority: 1,             
-        'userdata.firstname': 1,       
-        'userdata.lastname': 1,        
-      },
-    },
-    {
-      $unwind: '$userdata' 
-    } 
-  ]);
-   
-
+     const goodsproducts = await Goods.find({ isDeleted: false, createdBy: req.user.id  }).populate('createdBy','name') ;  
        res.render("settings/goods", {
         title: "Goods Products",
       Data: goodsproducts
@@ -108,8 +80,8 @@ router.get('/goods', async function(req, res, next) {
 router.post('/goods/create', async function(req, res, next) {
     try {
       const createdBy = req.user.id; 
-      const { productname, productid, status, priority } = req.body;
-      const createGoods = new Goods({ productname, productid, status, priority, createdBy  });
+      const { productname, price, status, priority } = req.body;
+      const createGoods = new Goods({ productname, price, status, priority, createdBy  });
       await createGoods.save();
       res.json({ success: true, message: 'Product Created!' });
     } catch (err) {
@@ -127,5 +99,50 @@ router.post('/goods/delete/', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+/* EDIT GOODS. */
+router.post('/goods/edit', async function(req, res, next) {
+  try {
+    const data = await Goods.findById(req.body.id, 'id productname status price');
+    if (!data) {
+      return res.status(500).json({ message: 'Product Not Found' });
+    }
+    return  res.json({ success: true, data });
+  } catch (error) {
+     return res.status(500).json({ message: error });
+  } 
+ });
 
+/* EDIT GOODS. */
+router.put('/goods/edit', async function(req, res, next) {
+  try { 
+    const { productname, status, price  } = req.body;
+    await Goods.findByIdAndUpdate(req.body.good_id, { productname,price, status }); 
+    res.json({ success: true, message: 'Product details updated!' });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+  }); 
+/* EDIT SERVICES. */
+router.post('/services/edit', async function(req, res, next) {
+  try {
+    const data = await Services.findById(req.body.id, 'id servicename status priority');
+    if (!data) {
+      return res.status(500).json({ message: 'Service Not Found' });
+    }
+    return  res.json({ success: true, data });
+  } catch (error) {
+     return res.status(500).json({ message: error });
+  } 
+ });
+
+/* EDIT SERVICES. */
+router.put('/services/edit', async function(req, res, next) {
+  try { 
+    const { servicename, status, priority  } = req.body;
+    await Services.findByIdAndUpdate(req.body.service_id, { servicename, status, priority }); 
+    res.json({ success: true, message: 'Service details updated!' });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+  }); 
 module.exports = router;

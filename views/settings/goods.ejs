@@ -40,9 +40,9 @@
                                                     <label for="Product-name" class="form-label">Product Name</label>
                                                     <input type="text" class="form-control" name="productname" placeholder="Product Name" required>
                                                 </div>
-                                                <div class="col-xl-12">
-                                                    <label for="Product-id" class="form-label">Product ID</label>
-                                                    <input type="text" class="form-control" name="productid" placeholder="Product ID" value="SMIC-304" required>
+                                                <div class="col-xl-6">
+                                                    <label for="Product-id" class="form-label">Price</label>
+                                                    <input type="number" class="form-control" name="price" required>
                                                 </div>
                                                  
                                                 <div class="col-xl-6">
@@ -51,15 +51,7 @@
                                                         <option value="Active">Active</option>
                                                         <option value="Inactive">Inactive</option>
                                                     </select>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <label class="form-label">Priority</label>
-                                                    <select class="form-control" data-trigger   name="priority">
-                                                        <option value="High">High</option>
-                                                        <option value="Medium">Medium</option>
-                                                        <option value="Low">Low</option>
-                                                    </select>
-                                                </div>
+                                                </div> 
                                                  
                                             </div>
                                         
@@ -73,7 +65,48 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End::add Product modal -->
+                            <!-- End::add Product modal --> <!-- End::add Product modal -->
+                            <div class="modal fade" id="edit-goods" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <form method="post" id="editgoods">
+                                        <div class="modal-header">
+                                            <h6 class="modal-title">Edit Goods</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body px-4">
+                                            
+                                            <div class="row gy-2">
+                                                <div class="col-xl-6">
+                                                    <label for="role-name" class="form-label">Goods Name</label>
+                                                    <input type="text" class="form-control" name="productname"  id="edit-name" placeholder="Goods Name" required>
+                                                </div> 
+                                                <div class="col-xl-6">
+                                                    <label for="Product-id" class="form-label">Price</label>
+                                                    <input type="number" class="form-control" name="price" required  id="edit-price">
+                                                </div>
+                                                 
+                                                <div class="col-xl-6">
+                                                    <label class="form-label">Status</label>
+                                                    <select class="form-control" data-trigger name="status"  id="edit-status">
+                                                        <option value="Active">Active</option>
+                                                        <option value="Inactive">Inactive</option>
+                                                    </select>
+                                                </div> 
+                                                 
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" name="good_id" value="" id="good_id">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </form> 
+                                    </div>
+                                </div>
+                            </div>
                            
                         </div>
                     </div>
@@ -81,11 +114,10 @@
                         <div class="table-responsive">
                             <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Product ID</th>
-                                        <th scope="col">Product Name</th>                                        
-                                        <th scope="col">Status</th> 
-                                        <th scope="col">Priority</th>
+                                    <tr>                                        
+                                        <th scope="col">Product Name</th> 
+                                        <th scope="col">Price</th>                                       
+                                        <th scope="col">Status</th>  
                                         <th scope="col">Created By</th> 
                                         <th scope="col">Date</th> 
                                         <th class="text-center">Action</th>
@@ -95,26 +127,25 @@
                                     <% Data.forEach(good => { %> 
 
                                         <tr class="product-list-<%= good._id %>">
-                                            <td>
-                                                <span class="fw-semibold"><%= good.productid %></span>
-                                            </td> 
+                                           
                                             <td>
                                                 <span class="fw-semibold"><%= good.productname %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold text-success"><%= good.status %></span>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-secondary-transparent"><%= good.priority %></span>
+                                                <span class="fw-semibold">₹<%= good.price %></span>
                                             </td> 
                                             <td>
-                                                <%= good.userdata.firstname %> <%= good.userdata.lastname %>
+                                                <span class="fw-semibold text-success"><%= good.status %></span>
+                                            </td> 
+                                            <td>
+                                                <%= good.createdBy.name %> 
                                             </td>
                                             <td>
                                                 <%= moment(good.createdAt).format('Do MMMM, YYYY')  %> 
                                             </td>
                                            
                                             <td class="text-center"> 
+                                                <button class="btn btn-sm btn-info-light btn-icon goods-edit-btn"  data-id="<%= good._id %>"><i class="ri-pencil-line"></i></button>
                                                 <button class="btn btn-danger-light btn-icon ms-1 btn-sm product-delete-btn" data-id="<%= good._id %>"><i class="ri-delete-bin-5-line"></i></button>
                                             </td>
                                         </tr> 
