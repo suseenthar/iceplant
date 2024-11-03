@@ -151,7 +151,7 @@ $('#createsales').submit(function(event) {
         $('#sgst').val(sgst.toFixed(2));
         $('#grandtotal').val(grandTotal.toFixed(2));
       } 
-        $('select[name="products"],select[name="customer"], #productqty, #discount,.proqty').on('input change click', function() {
+        $('select[name="products"],select[name="customer"], #productqty,#product-price, #discount,.proqty').on('input change click', function() {
           calculateTotals();
         });
       });

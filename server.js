@@ -44,7 +44,8 @@ var salesController  = require('@controller/salesController');
 var settingsController  = require('@controller/settingsController');
 var customersController  = require('@controller/customersController');
 var companyController  = require('@controller/companyController');
-  
+var expensesController  = require('@controller/expensesController');
+var incomeController  = require('@controller/incomeController');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -90,6 +91,8 @@ app.use('/sales',isAuthenticated, salesController);
 app.use('/settings',isAuthenticated, settingsController);
 app.use('/customers',isAuthenticated, customersController);
 app.use('/company',isAuthenticated, companyController);
+app.use('/expenses',isAuthenticated, expensesController);
+app.use('/income',isAuthenticated,incomeController);
 
 // error handler
 app.use(function(err, req, res, next) {  

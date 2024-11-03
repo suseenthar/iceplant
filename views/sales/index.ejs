@@ -46,7 +46,7 @@
                                                 <div class="col-xl-6">
                                                     <label for="task-name" class="form-label">Customer</label>
                                                     <select class="form-control form-select" data-trigger name="customer" id="customer"  >
-                                                        <option value="">Select a Company</option>
+                                                        <option value="">Select a Customer</option>
                                                         <% customerlist.forEach(data => { %> 
                                                             <option value="<%=data.id%>"  data-discount="<%=data.discount%>"> <%=data.name %></option>
                                                          <% }); %>  
@@ -107,7 +107,7 @@
                                                                             <button class="btn btn-icon btn-primary input-group-text flex-fill product-quantity-plus proqty" type="button"><i class="ri-add-line"></i></button>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text" readonly   name="price" id="product-price"  required></td>
+                                                                    <td><input class="form-control form-control-light" placeholder="₹0.00" type="text"  name="price" id="product-price"  required></td>
                                                                     <td><input class="form-control form-control-light" placeholder="₹0.00" type="text" readonly   name="total" id="price-per-unit" required></td>
                                                                      
                                                                 </tr>  
