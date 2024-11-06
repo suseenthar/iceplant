@@ -140,8 +140,8 @@ $('#createsales').submit(function(event) {
      
         const discount = (subtotal * discountPercentage) / 100;
      
-        const cgst = (subtotal - discount) * 0.05;  // 5% CGST
-        const sgst = (subtotal - discount) * 0.10;  // 10% SGST
+        const cgst = (subtotal - discount) * 0.025;  // 5% CGST
+        const sgst = (subtotal - discount) * 0.025;  // 10% SGST
      
         const grandTotal = subtotal - discount + cgst + sgst;
      
