@@ -121,8 +121,10 @@ $('#createsales').submit(function(event) {
         const selectedOption = $(this).find('option:selected'); 
         const discount = selectedOption.data('discount'); 
         if (discount) {  
+          $('#discountpercentage').text(discount);
           $('#discount').val(discount);
         } else {
+          $('#discountpercentage').text('0');
           $('#discount').val(0);  
         }
       });
@@ -132,16 +134,24 @@ $('#createsales').submit(function(event) {
       function calculateTotals() { 
         const pricePerUnit = parseFloat($('#product-price').val()) || 0;
         const quantity = parseInt($('#productqty').val()) || 0;
-        const discountPercentage = parseFloat($('#discount').val()) || 0;
+
+        const selectedOption = $('select[name="customer"]').find('option:selected'); 
+        const discountpc = selectedOption.data('discount'); 
+
+
+        const discountPercentage = parseFloat(discountpc) || 0;
      
         $('#price-per-unit').val(pricePerUnit.toFixed(2) * quantity);
      
         const subtotal = pricePerUnit * quantity;
+        
      
         const discount = (subtotal * discountPercentage) / 100;
+
+        $('#discount').val(discount);
      
-        const cgst = (subtotal - discount) * 0.025;  // 5% CGST
-        const sgst = (subtotal - discount) * 0.025;  // 10% SGST
+        const cgst = (subtotal - discount) * 0.025;   
+        const sgst = (subtotal - discount) * 0.025;  
      
         const grandTotal = subtotal - discount + cgst + sgst;
      

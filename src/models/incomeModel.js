@@ -1,11 +1,10 @@
 const mongoose = require('mongoose'); 
 
-const IncomeSchema = new mongoose.Schema({
-    incomeno: { type: String, required: true }, 
-    billno:  { type: String, required: true }, 
-    date : { type: Date, required: true }, 
+const IncomeSchema = new mongoose.Schema({ 
     customer:  { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
-    amount: { type: String, required: true }, 
+    billno:  { type: String, required: true }, 
+    date : { type: Date, required: true },  
+    amount: { type: Number, required: true }, 
     narration: { type: String, required: true }, 
     isDeleted: { type: Boolean, default: false }, 
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

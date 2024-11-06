@@ -69,4 +69,19 @@ $('#newincome').submit(function(event) {
     })  
   });
 
-  
+  //GET OUTSTANDING
+  $('#customer').change(function(event) {
+    event.preventDefault();  
+    var id = $(this).val() ;
+    var formData = { id }; 
+
+    $.ajax({
+        type: 'POST',
+        url: '/income/outstanding',   
+        data: formData,  
+        dataType: 'json',  
+      })
+      .done(function(response) {    
+        $('#outstanding').val(response.amount) 
+      })  
+  });

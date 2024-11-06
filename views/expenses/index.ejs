@@ -38,10 +38,14 @@
                                         <div class="modal-body px-4">
                                             
                                             <div class="row gy-2">
-                                                <div class="col-xl-6">
-                                                    <label  class="form-label">Billing No</label>
-                                                    <input type="text" class="form-control" name="billno" placeholder="No"  required>
-                                                 </div>
+                                                <div class="col-xl-12">
+                                                <label class="form-label">Supplier</label>
+                                                <select class="form-control form-select" data-trigger name="supplier" id="supplier"  required >
+                                                     <% supplierlist.forEach(data => { %> 
+                                                        <option value="<%=data.id%>"> <%=data.name %></option>
+                                                     <% }); %>  
+                                                </select>
+                                            </div> 
                                                 <div class="col-xl-6">
                                                     <label class="form-label">Date</label>
                                                     <div class="input-group">
@@ -49,10 +53,7 @@
                                                     <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" placeholder="Choose date" readonly="readonly">
                                                 </div>
                                                 </div> 
-                                                <div class="col-xl-6">
-                                                    <label class="form-label">Expense To</label>
-                                                    <input type="text" class="form-control" name="expenseto"  required>
-                                                </div>
+                                               
                                                 <div class="col-xl-6">
                                                     <label  class="form-label">Amount</label>
                                                     <div class="input-group">
@@ -87,8 +88,7 @@
                             <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th scope="col">SNO</th> 
-                                        <th scope="col">Billing No</th>
+                                        <th scope="col">Billing No</th>  
                                         <th scope="col">Expense to</th> 
                                         <th scope="col">Amount</th>
                                         <th scope="col">Date</th> 
@@ -101,13 +101,10 @@
 
                                         <tr class="expense-list-<%= expense._id %>">
                                             <td>
-                                                <%= expense.expenseno %>
-                                            </td> 
+                                                <%= expense.billno %>
+                                            </td>  
                                             <td>
-                                                <span class="fw-semibold"><%= expense.billno %> </span>
-                                            </td> 
-                                            <td>
-                                                <span class="fw-semibold"><%= expense.expenseto %></span>
+                                                <span class="fw-semibold"><%= expense.supplier.name %></span>
                                             </td> 
                                             
                                             <td>

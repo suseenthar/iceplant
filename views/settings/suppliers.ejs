@@ -1,12 +1,12 @@
  
         <!-- Page Header -->
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Services List</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Suppliers List</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Settings</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Services List</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Suppliers</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Suppliers List</li>
                     </ol>
                 </nav>
             </div>
@@ -19,17 +19,17 @@
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
                         <div class="card-title">
-                            List of Services
+                            List of Suppliers
                         </div>
                         <div class="d-flex">
-                            <button class="btn btn-sm btn-primary btn-wave waves-light" data-bs-toggle="modal" data-bs-target="#create-service"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Service</button>
-                            <!-- Start::add service modal -->
-                            <div class="modal fade" id="create-service" tabindex="-1" aria-hidden="true">
+                            <button class="btn btn-sm btn-primary btn-wave waves-light" data-bs-toggle="modal" data-bs-target="#create-supplier"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Service</button>
+                            <!-- Start::add supplier modal -->
+                            <div class="modal fade" id="create-supplier" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <form method="post" id="services">
+                                        <form method="post" id="createsupplier">
                                         <div class="modal-header">
-                                            <h6 class="modal-title">Add Service</h6>
+                                            <h6 class="modal-title">Add Supplier</h6>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -37,29 +37,23 @@
                                             
                                             <div class="row gy-2">
                                                 <div class="col-xl-12">
-                                                    <label for="service-name" class="form-label">Service Name</label>
-                                                    <input type="text" class="form-control" name="servicename" placeholder="Service Name" required>
+                                                    <label for="service-name" class="form-label">Name</label>
+                                                    <input type="text" class="form-control" name="name" placeholder="Supplier Name" required>
                                                 </div>
                                                 <div class="col-xl-12">
-                                                    <label for="service-id" class="form-label">Service ID</label>
-                                                    <input type="text" class="form-control" name="serviceid" placeholder="Service ID" value="SMIC-304" required>
-                                                </div>
-                                                 
-                                                <div class="col-xl-6">
-                                                    <label class="form-label">Status</label>
-                                                    <select class="form-control" data-trigger name="status">
-                                                        <option value="Active">Active</option>
-                                                        <option value="Inactive">Inactive</option>
-                                                    </select>
+                                                    <label for="service-id" class="form-label">Address</label>
+                                                    <input type="text" class="form-control" name="address"  required>
                                                 </div>
                                                 <div class="col-xl-6">
-                                                    <label class="form-label">Priority</label>
-                                                    <select class="form-control" data-trigger   name="priority">
-                                                        <option value="High">High</option>
-                                                        <option value="Medium">Medium</option>
-                                                        <option value="Low">Low</option>
-                                                    </select>
+                                                    <label for="service-id" class="form-label">Contact No</label>
+                                                    <input type="text" class="form-control" name="contactno" required>
+                                                </div> 
+
+                                                <div class="col-xl-6">
+                                                    <label for="service-id" class="form-label">City</label>
+                                                    <input type="text" class="form-control" name="city" required>
                                                 </div>
+                                                
                                                  
                                             </div>
                                         
@@ -81,41 +75,42 @@
                         <div class="table-responsive">
                             <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Service ID</th>
-                                        <th scope="col">Service Name</th>                                        
-                                        <th scope="col">Status</th> 
-                                        <th scope="col">Priority</th>
+                                    <tr> 
+                                        <th scope="col">Name</th>                                        
+                                        <th scope="col">Address</th> 
+                                        <th scope="col">Contact No</th>
+                                        <th scope="col">City</th>
                                         <th scope="col">Created By</th> 
                                         <th scope="col">Date</th> 
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody> 
-                                    <% Data.forEach(service => { %>  
+                                    <% Data.forEach(supplier => { %>  
 
-                                        <tr class="service-list-<%= service._id %>">
+                                        <tr class="supplier-list-<%= supplier._id %>">
+                                             
                                             <td>
-                                                <span class="fw-semibold"><%= service.serviceid %></span>
+                                                <span class="fw-semibold"><%= supplier.name %></span>
                                             </td> 
                                             <td>
-                                                <span class="fw-semibold"><%= service.servicename %></span>
-                                            </td> 
-                                            <td>
-                                                <span class="fw-semibold text-primary"><%= service.status %></span>
+                                                <%= supplier.address %>
                                             </td>
                                             <td>
-                                                <span class="badge bg-secondary-transparent"><%= service.priority %></span>
+                                                <%= supplier.contactno %>
                                             </td> 
                                             <td>
-                                                <%= service.userdata.firstname %> <%= service.userdata.lastname %>
+                                                <%= supplier.city %>
+                                            </td> 
+                                            <td>
+                                                <%= supplier.createdBy.name %>
                                             </td>
                                             <td>
-                                                <%= moment(service.createdAt).format('Do MMMM, YYYY')  %> 
+                                                <%= moment(supplier.createdAt).format('Do MMMM, YYYY')  %> 
                                             </td>
                                            
                                             <td class="text-center"> 
-                                                <button class="btn btn-danger-light btn-icon ms-1 btn-sm service-delete-btn" data-id="<%= service._id %>"><i class="ri-delete-bin-5-line"></i></button>
+                                                <button class="btn btn-danger-light btn-icon ms-1 btn-sm supplier-delete-btn" data-id="<%= supplier._id %>"><i class="ri-delete-bin-5-line"></i></button>
                                             </td>
                                         </tr> 
                                       <% }); %>  

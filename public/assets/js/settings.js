@@ -130,20 +130,20 @@ $('#goodsproducts').submit(function(event) {
 
 
   //CREATE SERVICE
-$('#services').submit(function(event) {
+$('#createsupplier').submit(function(event) {
     event.preventDefault();  
     var formData = $(this).serialize();
  
     $.ajax({
       type: 'POST',
-      url: '/settings/services/create',   
+      url: '/settings/suppliers/create',   
       data: formData,  
       dataType: 'json',  
     })
     .done(function(response) {   
         $('#create-service').modal('hide');
         Swal.fire({
-            title: 'Service added successfully!',
+            title: 'Supplier added successfully!',
             icon: 'success', 
             showDenyButton: false,
             showCancelButton: false,
@@ -158,13 +158,11 @@ $('#services').submit(function(event) {
     });
     return false;
   });
-//DELETE SERVICE
-  $('.service-delete-btn').click(function(event) {
+//DELETE Supplier
+  $('.supplier-delete-btn').click(function(event) {
     event.preventDefault();  
     var id = $(this).attr('data-id') ;
-    var formData = {
-        ServiceID: id 
-    }; 
+    var formData = {ID: id}; 
 
     Swal.fire({
         title: 'Are you sure?',
@@ -178,15 +176,15 @@ $('#services').submit(function(event) {
         if (result.isConfirmed) {
             $.ajax({
                 type: 'POST',
-                url: '/settings/services/delete',   
+                url: '/settings/suppliers/delete',   
                 data: formData,  
                 dataType: 'json',  
               })
             
-            $('.service-list-'+id).remove();
+            $('.supplier-list-'+id).remove();
             Swal.fire(
                 'Deleted!',
-                'The Service has been deleted.',
+                'The Supplier has been deleted.',
                 'success'
             )
         }

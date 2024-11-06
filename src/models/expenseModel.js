@@ -1,10 +1,9 @@
 const mongoose = require('mongoose'); 
 
 const ExpenseSchema = new mongoose.Schema({
-    expenseno: { type: String, required: true }, 
+    supplier: { type: mongoose.Schema.Types.ObjectId, ref: 'Supplier' },
     billno:  { type: String, required: true }, 
-    date : { type: Date, required: true }, 
-    expenseto: { type: String, required: true }, 
+    date : { type: Date, required: true },  
     amount: { type: String, required: true }, 
     narration: { type: String, required: true }, 
     isDeleted: { type: Boolean, default: false }, 
