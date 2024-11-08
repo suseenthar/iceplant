@@ -1,14 +1,7 @@
+
 (function () {
   "use strict";
-
-  /* page loader */
-  function hideLoader() {
-    const loader = document.getElementById("loader");
-    loader.classList.add("d-none")
-  }
-  window.addEventListener("load", hideLoader);
-  /* page loader */
-
+ 
   /* tooltip */
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   const tooltipList = [...tooltipTriggerList].map(
@@ -56,8 +49,7 @@
 
     button.addEventListener("click", () => {
       const el = document.createElement("p");
-      pickrContainerPrimary.appendChild(el);
-
+ 
       /* Delete previous instance */
       if (nanoPickr) {
         nanoPickr.destroyAndRemove();
@@ -137,8 +129,7 @@
     nanoButtons1.push(button);
 
     button.addEventListener("click", () => {
-      const el = document.createElement("p");
-      pickrContainerBackground.appendChild(el);
+      const el = document.createElement("p"); 
 
       /* Delete previous instance */
       if (nanoPickr1) {
@@ -203,8 +194,7 @@
           `${color[0] + 14}, ${color[1] + 14}, ${color[2] + 14}`
         );
       });
-    });
-    themeContainerBackground.appendChild(button);
+    }); 
   }
   nanoButtons1[0].click();
   /* for theme background */
@@ -272,9 +262,7 @@
       localStorage.removeItem("bodylightRGB");
       localStorage.removeItem("bodyBgRGB");
     }
-  }
-  let layoutSetting = document.querySelector(".layout-setting");
-  layoutSetting.addEventListener("click", toggleTheme);
+  } 
   /* header theme toggle */
 
   /* Choices JS */

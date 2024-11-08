@@ -10,7 +10,7 @@ router.get('/', async function(req, res, next) {
 
   const data = await Production.find({ isDeleted: false , createdBy: req.user.id  }).populate('unit','name') ;
   const unitlist = await Unit.find({ isDeleted: false , createdBy: req.user.id  });
- 
+ console.log(data)
     res.render("production/index", {
     title: "Productions List", 
     data,unitlist
@@ -18,7 +18,7 @@ router.get('/', async function(req, res, next) {
 
   });
 /* GET CREATE. */
-router.get('/created', async function(req, res, next) {
+router.get('/create', async function(req, res, next) {
     const unitdata = await Unit.find({ isDeleted: false , createdBy: req.user.id  }).populate('createdBy','name') ;
     res.render("production/create", {
     title: "Productions Create",  

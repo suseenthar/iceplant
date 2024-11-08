@@ -37,7 +37,7 @@
                                             <div class="row gy-2">
                                                 <div class="col-xl-6">
                                                     <label for="task-name" class="form-label">Unit Name</label>
-                                                    <select class="form-control form-select" data-trigger name="unit" >
+                                                    <select class="form-control form-select" name="unit" >
                                                         <% unitlist.forEach(data => { %> 
                                                         <option value="<%=data.id%>"> <%=data.name %></option>
                                                         <% }); %>  
@@ -45,7 +45,7 @@
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <label for="task-name" class="form-label">Customer</label>
-                                                    <select class="form-control form-select" data-trigger name="customer" id="customer"  >
+                                                    <select class="form-control form-select" name="customer" id="customer"  >
                                                         <option value="">Select a Customer</option>
                                                         <% customerlist.forEach(data => { %> 
                                                             <option value="<%=data.id%>"  data-discount="<%=data.discount%>"> <%=data.name %></option>
@@ -92,7 +92,7 @@
                                                             <tbody>
                                                                 <tr> 
                                                                     <td>
-                                                                        <select class="form-control form-select calculateamt" data-trigger name="products"  required >
+                                                                        <select class="form-control form-select calculateamt"  name="products"  required >
                                                                             <option value="">Select a Product</option>
                                                                             <% productlist.forEach(data => { %> 
                                                                                 <option value="<%=data.id%>" data-price="<%=data.price%>"> <%=data.productname %></option>
