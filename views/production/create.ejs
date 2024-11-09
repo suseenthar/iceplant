@@ -1,7 +1,7 @@
  
         <!-- Page Header -->
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Productions  ( <%=moment().format("YYYY-MM-DD")%> )</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Productions </h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
@@ -12,59 +12,64 @@
             </div>
         </div>
         <!-- Page Header Close -->
-
+        <form method="post" id="newproduction">
         <!-- Start::row-1 -->
         <div class="row">
-            <div class="col-xxl-6 col-xl-6">
+            <div class="col-xxl-4 col-xl-4">
+
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
                         <div class="card-title">
-                          UNIT A
+                          Production Details
                         </div>
                         <div class="d-flex">
                              
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="text-center">Row No</th>
-                                        <th scope="col" class="text-center" >Time</th>
-                                        <th scope="col" class="text-center">AM/PM</th>                                        
-                                        <th scope="col" class="text-center">Quantity</th>   
-                                        <th scope="col" class="text-center">TOT BAR</th>          
-                                    </tr>
-                                    <% for (let i = 1; i <= 50; i++) { %>
-                                        <tr>
-                                            <td><b><%= i %></b></td>
-                                            <td><input type="text"  class="form-control"></td>
-                                            <td><select style="width: 80px;"  class="form-control form-select"><option>AM</option><option>PM</option></select></td>
-                                            <td><input type="text"   class="form-control"></td>
-                                            <td><input type="text"   class="form-control"></td>
-                                        </tr>
-                                      <% } %>
-                                    
-                                </thead>
-                                <tbody> 
-                                     
-                                </tbody>
-                            </table>
- 
+                        
+                        <div class="row gy-2">
+                            <div class="col-xl-6">
+                                <label for="Units-name" class="form-label">Unit Name</label>
+                                <select class="form-control form-select" data-trigger name="unit" >
+                                    <% unitlist.forEach(data => { %> 
+                                    <option value="<%=data.id%>"> <%=data.name %></option>
+                                    <% }); %>  
+                                </select>
+                             </div>
+                            <div class="col-xl-6">
+                                <label class="form-label">Select Date</label>
+                                <div class="input-group">
+                                <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" placeholder="Choose date" readonly="readonly">
+                            </div>
+                            </div> 
+                            <div class="col-xl-6">
+                                <label for="Units-id" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" name="quantity" placeholder="Quantity" value="0" required readonly id="totalQty">
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="Units-id" class="form-label">Total Bars</label>
+                                <input type="number" class="form-control" name="bars" placeholder="Total Bars" value="0" required readonly id="totalTot">
+                            </div>
+                        
+                            
+                             
                         </div>
+                  
                     </div>
                      
                 </div>
+ 
             </div>
-            <div class="col-xxl-6 col-xl-6">
+            <div class="col-xxl-8 col-xl-8">
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
                         <div class="card-title">
-                         UNIT B
+                          Ice Bar Details
                         </div>
                         <div class="d-flex">
-                             <a class="btn btn-sm btn-primary btn-wave waves-light" href="/productions/"  >Back</a> 
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -81,10 +86,10 @@
                                     <% for (let i = 1; i <= 50; i++) { %>
                                         <tr>
                                             <td><b><%= i %></b></td>
-                                            <td><input type="text"  class="form-control"></td>
-                                            <td><select style="width: 80px;"  class="form-control form-select"><option>AM</option><option>PM</option></select></td>
-                                            <td><input type="text"   class="form-control"></td>
-                                            <td><input type="text"   class="form-control"></td>
+                                            <td><input type="text" name="time" class="form-control"></td>
+                                            <td><select style="width: 80px;"  name="ampm"   class="form-control form-select"><option>AM</option><option>PM</option></select></td>
+                                            <td><input type="text" name="qty" class="form-control qty-value"></td>
+                                            <td><input type="text" name="tot" class="form-control tot-value"></td>
                                         </tr>
                                       <% } %>
                                     
@@ -99,8 +104,34 @@
                      
                 </div>
             </div>
+          
         </div>
         <!--End::row-1 -->
- 
+    </form>
+
+        <script>
+            function calculateTotal() {
+              let totalQty = 0;
+              let totalTot = 0; 
+              $('.qty-value').each(function() {
+                const qtyValue = parseFloat($(this).val()) || 0; 
+                totalQty += qtyValue;
+              });
+          
+              // Calculate total amount
+              $('.tot-value').each(function() {
+                const totValue = parseFloat($(this).val()) || 0;  
+                totalTot += totValue;
+              });
+          
+              // Update the displayed totals
+              $('#totalQty').val(totalQty);
+              $('#totalTot').val(totalTot);
+            }
+          
+            // Bind the calculateTotal function to input changes on both qty and tot fields
+            $(document).on('input', '.qty-value, .tot-value', calculateTotal);
+          </script>
+
         <% script = ' <script src="/assets/js/production.js"></script> ' %>
         

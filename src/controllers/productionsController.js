@@ -18,11 +18,11 @@ router.get('/', async function(req, res, next) {
 
   });
 /* GET CREATE. */
-router.get('/create', async function(req, res, next) {
-    const unitdata = await Unit.find({ isDeleted: false , createdBy: req.user.id  }).populate('createdBy','name') ;
+router.get('/create', async function(req, res, next) { 
+    const unitlist = await Unit.find({ isDeleted: false , createdBy: req.user.id  });
     res.render("production/create", {
     title: "Productions Create",  
-    unitdata
+    unitlist 
   }); 
 
   });
@@ -30,8 +30,8 @@ router.get('/create', async function(req, res, next) {
 router.post('/create', async function(req, res, next) {
     try {
       const createdBy = req.user.id; 
-      const { unit, date, quantity, bars } = req.body;
-      const productions = new Production({ unit, date, quantity, bars, createdBy  });
+      const { unit, date, quantity, bars,time, ampm, qty, tot } = req.body;
+      const productions = new Production({ unit, date, quantity, bars,time, ampm, qty, tot, createdBy  });
       await productions.save();
       res.json({ success: true, message: 'Production Created!' });
     } catch (err) {
