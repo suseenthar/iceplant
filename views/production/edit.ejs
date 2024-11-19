@@ -26,13 +26,13 @@
                                 <label class="form-label">Select Date</label>
                                 <div class="input-group">
                                 <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
-                                <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" required placeholder="Choose date" readonly="readonly">
+                                <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" value="<%= moment(prodata.date).format('YYYY-MM-DD')  %>" required placeholder="Choose date" readonly="readonly">
                             </div>
                             </div> 
                             
                             <div class="col-xl-3">
                                 <label for="Units-id" class="form-label">Total Bars</label>
-                                <input type="number" class="form-control" name="bars" placeholder="Total Bars" value="0" required readonly id="totalTot">
+                                <input type="number" class="form-control" name="bars" placeholder="Total Bars" value="<%=prodata.bars%>" required readonly id="totalTot">
                             </div>
                         
                             
@@ -72,7 +72,7 @@
                                             <td><input type="time" name="time[<%=data.id %>]" class="form-control"></td>
                                             <td><select style="width: 80px;"  name="ampm[<%=data.id %>]"   class="form-control form-select"><option>AM</option><option>PM</option></select></td>
                                             <td style="text-align: center;"><input type="checkbox" name="qty[<%=data.id %>]"  onclick="updateTotal(this)" class="qty-value"></td>
-                                            <td><input type="text" name="tot[<%=data.id %>]" class="form-control tot-value"></td>
+                                            <td><input type="text" name="tot[<%=data.id %>]" class="form-control tot-value" value="<%=prodata.data.tot[672f28e8a4b8cfff5cf22762]%>"></td>
                                         </tr>
                                       <% } %>
                                     
