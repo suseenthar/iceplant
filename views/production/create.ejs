@@ -15,7 +15,7 @@
         <form method="post" id="newproduction">
         <!-- Start::row-1 -->
         <div class="row">
-            <div class="col-xxl-4 col-xl-4">
+            <div class="col-xxl-8 col-xl-8">
 
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
@@ -62,7 +62,7 @@
                 </div>
  
             </div>
-            <div class="col-xxl-8 col-xl-8">
+            <div class="col-xxl-6 col-xl-6">
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
                         <div class="card-title">
@@ -83,12 +83,55 @@
                                         <th scope="col" class="text-center">Quantity</th>   
                                         <th scope="col" class="text-center">TOT BAR</th>          
                                     </tr>
-                                    <% for (let i = 1; i <= 50; i++) { %>
+                                    <% for (let i = 1; i <= 29; i++) { %>
                                         <tr>
                                             <td><b><%= i %></b></td>
                                             <td><input type="text" name="time" class="form-control"></td>
                                             <td><select style="width: 80px;"  name="ampm"   class="form-control form-select"><option>AM</option><option>PM</option></select></td>
-                                            <td><input type="text" name="qty" class="form-control qty-value"></td>
+                                            <td style="text-align: center;"><input type="checkbox" name="qty" onclick="updateTotal(this)"></td>
+                                            <td><input type="text" name="tot" class="form-control tot-value"></td>
+                                        </tr>
+                                      <% } %>
+                                    
+                                </thead>
+                                <tbody> 
+                                     
+                                </tbody>
+                            </table>
+ 
+                        </div>
+                    </div>
+                     
+                </div>
+            </div>
+
+            <div class="col-xxl-6 col-xl-6">
+                <div class="card custom-card">
+                    <div class="card-header justify-content-between">
+                        <div class="card-title">
+                          Ice Bar Details
+                        </div>
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Row No</th>
+                                        <th scope="col" class="text-center" >Time</th>
+                                        <th scope="col" class="text-center">AM/PM</th>                                        
+                                        <th scope="col" class="text-center">Quantity</th>   
+                                        <th scope="col" class="text-center">TOT BAR</th>          
+                                    </tr>
+                                    <% for (let i = 1; i <= 29; i++) { %>
+                                        <tr>
+                                            <td><b><%= i %></b></td>
+                                            <td><input type="text" name="time" class="form-control"></td>
+                                            <td><select style="width: 80px;"  name="ampm"   class="form-control form-select"><option>AM</option><option>PM</option></select></td>
+                                            <td  style="text-align: center;"><input type="checkbox" name="qty" onclick="updateTotal(this)" ></td>
                                             <td><input type="text" name="tot" class="form-control tot-value"></td>
                                         </tr>
                                       <% } %>
@@ -112,26 +155,28 @@
         <script>
             function calculateTotal() {
               let totalQty = 0;
-              let totalTot = 0; 
-              $('.qty-value').each(function() {
-                const qtyValue = parseFloat($(this).val()) || 0; 
-                totalQty += qtyValue;
-              });
-          
+              let totalTot = 0;  
               // Calculate total amount
               $('.tot-value').each(function() {
                 const totValue = parseFloat($(this).val()) || 0;  
                 totalTot += totValue;
               });
           
-              // Update the displayed totals
-              $('#totalQty').val(totalQty);
+              // Update the displayed totals 
               $('#totalTot').val(totalTot);
             }
           
             // Bind the calculateTotal function to input changes on both qty and tot fields
             $(document).on('input', '.qty-value, .tot-value', calculateTotal);
           </script>
+
+<script> 
+    function updateTotal(checkbox) { 
+        const totInput = checkbox.closest('tr').querySelector('.tot-value'); 
+        const currentValue = parseFloat(totInput.value) || 0; 
+        totInput.value = checkbox.checked ? currentValue + 18 : currentValue - 18;
+    }
+</script>
 
         <% script = ' <script src="/assets/js/production.js"></script> ' %>
         
