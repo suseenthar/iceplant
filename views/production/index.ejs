@@ -35,7 +35,9 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th> 
-                                         <th scope="col">Bars</th>     
+                                         <th scope="col">Unit 1 Bars</th>   
+                                         <th scope="col">Unit 2 Bars</th>    
+                                         <th scope="col">Total Bars</th>
                                         <th scope="col">Created Date</th> 
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -48,7 +50,13 @@
                                                 <span class="fw-semibold"> <%= moment(production.date).format('Do MMMM, YYYY')  %> </span>
                                             </td>  
                                             <td>
-                                                <%= production.bars %>
+                                                <%= production.unit1bars %>
+                                            </td> 
+                                            <td>
+                                                <%= production.unit2bars %>
+                                            </td> 
+                                            <td>
+                                                <%= production.totalbars %>
                                             </td> 
                                             <td>
                                                 <%= moment(production.createdAt).format('Do MMMM, YYYY')  %> 

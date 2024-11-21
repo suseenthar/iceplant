@@ -20,7 +20,7 @@
                 <div class="card custom-card"> 
                     <div class="card-body">
                         
-                        <div class="row gy-2"><div class="col-xl-6"></div>
+                        <div class="row gy-2"> 
                             
                             <div class="col-xl-3">
                                 <label class="form-label">Select Date</label>
@@ -29,10 +29,18 @@
                                 <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" required placeholder="Choose date" readonly="readonly">
                             </div>
                             </div> 
+                            <div class="col-xl-3">
+                                <label for="Units-id" class="form-label"> Unit 1 - Total Bars </label>
+                                <input type="number" class="form-control" name="unit1bars" placeholder="Total Bars" value="0" required readonly id="u1totalTot">
+                            </div>
+                            <div class="col-xl-3">
+                                <label for="Units-id" class="form-label"> Unit 2 - Total Bars </label>
+                                <input type="number" class="form-control" name="unit2bars" placeholder="Total Bars" value="0" required readonly id="u2totalTot">
+                            </div>
                             
                             <div class="col-xl-3">
                                 <label for="Units-id" class="form-label">Total Bars</label>
-                                <input type="number" class="form-control" name="bars" placeholder="Total Bars" value="0" required readonly id="totalTot">
+                                <input type="number" class="form-control" name="totalbars" placeholder="Total Bars" value="0" required readonly id="totalTot">
                             </div>
                         
                             
@@ -44,7 +52,7 @@
                 </div>
  
             </div>
-            <% unitlist.forEach(data => { %> 
+            <% let j=1; unitlist.forEach(data => { %> 
             <div class="col-xxl-6 col-xl-6">
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
@@ -69,10 +77,10 @@
                                     <% for (let i = 1; i <= 29; i++) { %>
                                         <tr>
                                             <td><b><%= i %></b></td>
-                                            <td><input type="time" name="time[<%=data.id %>]" class="form-control"></td>
+                                            <td><input type="text" name="time[<%=data.id %>]" class="form-control"></td>
                                             <td><select style="width: 80px;"  name="ampm[<%=data.id %>]"   class="form-control form-select"><option>AM</option><option>PM</option></select></td>
-                                            <td style="text-align: center;"><input type="checkbox" name="qty[<%=data.id %>]"  onclick="updateTotal(this)" class="qty-value"></td>
-                                            <td><input type="text" name="tot[<%=data.id %>]" class="form-control tot-value"></td>
+                                            <td style="text-align: center;"><input type="checkbox" name="qty[<%=data.id %>]"  onclick="updateTotal<%=j%>(this)" class="qty-value"></td>
+                                            <td><input type="text" name="tot[<%=data.id %>]" class="form-control tot-value-<%=j%>" readonly></td>
                                         </tr>
                                       <% } %>
                                     
@@ -88,14 +96,14 @@
                 </div>
             </div>
             
-            <% }); %>  
+            <% j++; }); %>  
  
         </div>
         <!--End::row-1 -->
     </form>
 
         <script>
-            function calculateTotal() {
+            function calculateTotal1() {
               let totalQty = 0;
               let totalTot = 0;  
                $('.tot-value').each(function() {
@@ -104,17 +112,58 @@
               });
            
               $('#totalTot').val(totalTot);
-            }
-          
-             $(document).on('input', '.qty-value, .tot-value', calculateTotal);
-          </script>
+            } 
+           </script>
 
 <script> 
-    function updateTotal(checkbox) { 
-        const totInput = checkbox.closest('tr').querySelector('.tot-value'); 
-        const currentValue = parseFloat(totInput.value) || 0; 
-        totInput.value = checkbox.checked ? currentValue + 18 : currentValue - 18;
-    }
+    function updateTotal1(checkbox) { 
+    const row = checkbox.closest('tr');
+    const totInput = row.querySelector('.tot-value-1');
+    const currentValue = parseFloat(totInput.value) || 0;
+
+    // Update the "TOT BAR" field for the row
+    totInput.value = checkbox.checked ? currentValue + 18 : currentValue - 18;
+
+    // Recalculate Unit 1 Total
+    let u1totalTot = 0;  
+    $('.tot-value-1').each(function() {
+        const tot1Value = parseFloat($(this).val()) || 0;  
+        u1totalTot += tot1Value;
+    });
+
+    // Update Unit 1 Total Bars field with the calculated value
+    $('#u1totalTot').val(u1totalTot);
+
+    $('#totalTot').val(
+    parseFloat($('#u1totalTot').val()) + parseFloat($('#u2totalTot').val())
+);
+    
+}
+
+    
+function updateTotal2(checkbox) { 
+    const row = checkbox.closest('tr');
+    const totInput = row.querySelector('.tot-value-2');
+    const currentValue = parseFloat(totInput.value) || 0;
+
+    // Update the "TOT BAR" field for the row
+    totInput.value = checkbox.checked ? currentValue + 18 : currentValue - 18;
+
+    // Recalculate Unit 1 Total
+    let u2totalTot = 0;  
+    $('.tot-value-2').each(function() {
+        const tot2Value = parseFloat($(this).val()) || 0;  
+        u2totalTot += tot2Value;
+    });
+
+    // Update Unit 1 Total Bars field with the calculated value
+    $('#u2totalTot').val(u2totalTot);
+
+    $('#totalTot').val(
+    parseFloat($('#u1totalTot').val()) + parseFloat($('#u2totalTot').val())
+);
+    
+}
 </script>
 
         <% script = ' <script src="/assets/js/production.js"></script> ' %>

@@ -39,8 +39,8 @@ router.get('/edit/:id', async function(req, res, next) {
 router.post('/create', async function(req, res, next) {
     try {
       const createdBy = req.user.id; 
-      const {  date, bars } = req.body;
-      const productions = new Production({ bars, date, data:req.body, createdBy  });
+      const {  unit1bars,unit2bars,totalbars,date } = req.body;
+      const productions = new Production({ unit1bars,unit2bars,totalbars,date, data:req.body, createdBy  });
       await productions.save();
       res.json({ success: true, message: 'Production Created!' });
     } catch (err) {

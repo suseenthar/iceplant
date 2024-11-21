@@ -1,7 +1,9 @@
 const mongoose = require('mongoose'); 
 
 const ProductionSchema = new mongoose.Schema({
-    bars: { type: String, required: true }, 
+    unit1bars: { type: Number, required: true }, 
+    unit2bars: { type: Number, required: true }, 
+    totalbars: { type: Number, required: true }, 
     date : { type: Date, required: true },    
     data: { type: Array, required: true }, 
     isDeleted: { type: Boolean, default: false }, 
