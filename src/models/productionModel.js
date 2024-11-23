@@ -1,11 +1,11 @@
 const mongoose = require('mongoose'); 
 
 const ProductionSchema = new mongoose.Schema({
-    unit1bars: { type: Number, required: true }, 
-    unit2bars: { type: Number, required: true }, 
-    totalbars: { type: Number, required: true }, 
-    date : { type: Date, required: true },    
-    data: { type: Array, required: true }, 
+    unit: { type: mongoose.Schema.Types.ObjectId, ref: 'Unit' },
+    round: { type: Number, required: true ,'default': "1" }, 
+    bars: { type: Number, required: true }, 
+    date : { type: Date, default: Date.now },   
+    data: { type: Object, required: true }, 
     isDeleted: { type: Boolean, default: false }, 
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     createdAt: { type: Date, default: Date.now },

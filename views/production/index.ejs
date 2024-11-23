@@ -35,10 +35,9 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th> 
-                                         <th scope="col">Unit 1 Bars</th>   
-                                         <th scope="col">Unit 2 Bars</th>    
-                                         <th scope="col">Total Bars</th>
-                                        <th scope="col">Created Date</th> 
+                                        <th scope="col">Round</th> 
+                                         <th scope="col">Unit Name</th>   
+                                         <th scope="col">Total Bars</th> 
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -50,17 +49,15 @@
                                                 <span class="fw-semibold"> <%= moment(production.date).format('Do MMMM, YYYY')  %> </span>
                                             </td>  
                                             <td>
-                                                <%= production.unit1bars %>
-                                            </td> 
-                                            <td>
-                                                <%= production.unit2bars %>
-                                            </td> 
-                                            <td>
-                                                <%= production.totalbars %>
-                                            </td> 
-                                            <td>
-                                                <%= moment(production.createdAt).format('Do MMMM, YYYY')  %> 
+                                                <%= production.round %>
                                             </td>
+                                            <td>
+                                                <%= production.unit.name %>
+                                            </td> 
+                                            <td>
+                                                <%= production.bars %>
+                                            </td> 
+                                           
                                            
                                             <td class="text-center"> 
                                                 <a class="btn btn-sm btn-info-light btn-icon" href="/productions/edit/<%= production._id %>"><i class="ri-pencil-line"></i></a>

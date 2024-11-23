@@ -1,7 +1,4 @@
-/* DueDate Picker */
-flatpickr("#startdate", {enableTime: false,dateFormat: "Y-m-d"});
-
-//CREATE GOODS
+//CREATE PRODUCTION
 $('#newproduction').submit(function(event) {
     event.preventDefault();  
     var formData = $(this).serialize();
@@ -13,8 +10,7 @@ $('#newproduction').submit(function(event) {
       dataType: 'json',  
     })
     .done(function(response) {   
-        $('#createproduction').modal('hide');
-        Swal.fire({
+         Swal.fire({
             title: 'Production added successfully!',
             icon: 'success', 
             showDenyButton: false,
@@ -69,39 +65,33 @@ $('#newproduction').submit(function(event) {
     })  
   });
 
- //EDIT GOODS
- $('.product-edit-btn').click(function(event) {
+ //EDIT PRODUCTION 
+ $('#updateproduction').submit(function(event) {
     event.preventDefault();  
-    var id = $(this).attr('data-id') ;
-    var formData = {
-        ProductID: id 
-    }; 
-
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/settings/goods/delete',   
-                data: formData,  
-                dataType: 'json',  
-              })
-            
-            $('.product-list-'+id).remove();
-            Swal.fire(
-                'Deleted!',
-                'The Product has been deleted.',
-                'success'
-            )
-        }
-    })  
-  });
-
+    var formData = $(this).serialize();
  
+    $.ajax({
+      type: 'PUT',
+      url: '/productions/update',   
+      data: formData,  
+      dataType: 'json',  
+    })
+    .done(function(response) {   
+         Swal.fire({
+            title: 'Production updated successfully!',
+            icon: 'success', 
+            showDenyButton: false,
+            showCancelButton: false,
+        }).then(() => {
+            window.location.href = '/productions';  
+        });    
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) { 
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...Validation failed', 
+        }) 
+         
+    });
+    return false;
+  });

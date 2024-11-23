@@ -8,8 +8,8 @@ const Sequence = require('@model/sequenceModel');
 /* GET PRODUCTIONS. */
 router.get('/', async function(req, res, next) { 
   
-  const data = await Production.find({ isDeleted: false , createdBy: req.user.id  });
-      res.render("production/index", {
+  const data = await Production.find({ isDeleted: false , createdBy: req.user.id  }).populate('unit','name');
+    res.render("production/index", {
     title: "Productions List", 
     data 
   }); 
@@ -39,15 +39,45 @@ router.get('/edit/:id', async function(req, res, next) {
 router.post('/create', async function(req, res, next) {
     try {
       const createdBy = req.user.id; 
-      const {  unit1bars,unit2bars,totalbars,date } = req.body;
-      const productions = new Production({ unit1bars,unit2bars,totalbars,date, data:req.body, createdBy  });
-      await productions.save();
+      const {  unit,totalbars } = req.body;
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+
+      const existingProduction = await Production.findOne({
+      unit: unit,
+      date: { $gte: startOfDay, $lte: endOfDay },
+      });
+
+      let newRound = 1;
+
+      if (existingProduction) {  newRound = existingProduction.round + 1;}
+
+      const production = new Production({
+      unit,
+      bars: totalbars,
+      data: req.body,
+      createdBy,
+      round: newRound,
+      });
+      await production.save();
       res.json({ success: true, message: 'Production Created!' });
     } catch (err) {
       res.status(500).send(err.message);
     }
   });
-
+   /* UPDATE PRODUCTIONS. */
+  router.put('/update', async function(req, res, next) {
+    try {
+       const { unit,totalbars } = req.body;
+       await Production.findByIdAndUpdate(req.body.id, { unit,bars:totalbars,data:req.body  });
+       res.json({ success: true, message: 'Production Updated!' });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  });
  /* DELETE PRODUCTIONS. */
 router.post('/delete/', async (req, res) => {
   try {

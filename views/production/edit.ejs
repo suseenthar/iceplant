@@ -1,86 +1,63 @@
  
         <!-- Page Header -->
-        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Productions </h1>
-            <div class="ms-md-1 ms-0">
-                <nav>
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Productions</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <!-- Page Header Close -->
-        <form method="post" id="newproduction">
-        <!-- Start::row-1 -->
-        <div class="row">
-            <div class="col-xxl-12 col-xl-12">
-
-                <div class="card custom-card"> 
-                    <div class="card-body">
-                        
-                        <div class="row gy-2"> 
-                            
-                            <div class="col-xl-3">
-                                <label class="form-label">Select Date</label>
-                                <div class="input-group">
-                                <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
-                                <input type="text" class="form-control flatpickr-input active" id="startdate" name="date" required placeholder="Choose date" readonly="readonly"  value="<%= moment(prodata.date).format('YYYY-MM-DD')  %>">
-                            </div>
-                            </div> 
-                            <div class="col-xl-3">
-                                <label for="Units-id" class="form-label"> Unit 1 - Total Bars </label>
-                                <input type="number" class="form-control" name="unit1bars" placeholder="Total Bars"  value="<%=prodata.unit1bars%>" required readonly id="u1totalTot">
-                            </div>
-                            <div class="col-xl-3">
-                                <label for="Units-id" class="form-label"> Unit 2 - Total Bars </label>
-                                <input type="number" class="form-control" name="unit2bars" placeholder="Total Bars"  value="<%=prodata.unit2bars%>" required readonly id="u2totalTot">
-                            </div>
-                            
-                            <div class="col-xl-3">
-                                <label for="Units-id" class="form-label">Total Bars</label>
-                                <input type="number" class="form-control" name="totalbars" placeholder="Total Bars"  value="<%=prodata.totalbars%>" required readonly id="totalTot">
-                            </div>
-                        
-                            
-                             
-                        </div>
-                  
+        <form method="post" id="updateproduction">
+            <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+                <h1 class="page-title fw-semibold fs-18 mb-0">Edit Productions</h1>
+                <div class="ms-md-1 ms-0"> <div class="row gy-2">  
+                    <div class="col-xl-4">
+                    <select class="form-control form-select" name="unit">
+    
+                        <% unitlist.forEach(data => { %>
+                            <option value="<%= data.id %>" <%= data.id === prodata.unit ? 'selected' : '' %>>
+                                <%= data.name %>
+                            </option>
+                        <% }); %>
+    
+                    </select>
+                </div>
+    
+                    <div class="col-xl-4">
+                         <input type="number" class="form-control" name="totalbars" placeholder="Total Bars" value="<%=prodata.bars%>" required readonly id="totalTot">
                     </div>
+                    
+                    <div class="col-xl-4"> 
+                         <input type="hidden" value="<%=prodata.id%>" name="id">
+                         <button type="submit" name="submit" value="Save" class="btn btn-sm btn-primary btn-wave waves-light waves-effect waves-light" style="margin-top: 4px ;">Update</button>
+                    </div> 
                      
                 </div>
- 
+                </div>
             </div>
-            <% let j=1; unitlist.forEach(data => { %> 
-                <div class="col-xxl-6 col-xl-6">
+            <!-- Page Header Close -->
+            
+            <!-- Start::row-1 -->
+            <div class="row">
+              
+                <div class="col-xxl-4 col-xl-4">
                     <div class="card custom-card">
-                        <div class="card-header justify-content-between">
-                            <div class="card-title">
-                                <%=data.name %> -  Ice Bar Details
-                            </div>
-                            <div class="d-flex">
-                                <button type="submit" class="btn btn-primary">Update</button>
-                            </div>
-                        </div>
+                       
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
                                     <thead>
                                         <tr>
-                                            <th scope="col" class="text-center">Row No</th>
+                                            <th scope="col" class="text-center">Row</th>
                                             <th scope="col" class="text-center" >Time</th>
                                             <th scope="col" class="text-center">AM/PM</th>                                        
                                             <th scope="col" class="text-center">Quantity</th>   
-                                            <th scope="col" class="text-center">TOT BAR</th>          
+                                            <th scope="col" class="text-center">Bars</th>          
                                         </tr>
-                                        <% for (let i = 1; i <= 29; i++) { %>
+                                        <% for (let i = 1; i <= 10; i++) { %>
                                             <tr>
-                                                <td><b><%= i %></b></td>
-                                                <td><input type="text" name="time[<%=data.id %>]" class="form-control"></td>
-                                                <td><select style="width: 80px;"  name="ampm[<%=data.id %>]"   class="form-control form-select"><option>AM</option><option>PM</option></select></td>
-                                                <td style="text-align: center;"><input type="checkbox" name="qty[<%=data.id %>]"  onclick="updateTotal<%=j%>(this)" class="qty-value"></td>
-                                                <td><input type="text" name="tot[<%=data.id %>]" class="form-control tot-value-<%=j%>" readonly></td>
+                                                <td style="padding: 6px;text-align: center;"><b><%= i %></b></td>
+                                                <td  style="padding: 6px;"><input type="text" name="time-<%= i %>" class="form-control" value="<%= prodata.data[`time-${i}`] %>">
+                                                </td>
+                                                <td  style="padding: 6px;"><select style="width: 80px;"  name="ampm-<%=i%>"   class="form-control form-select">
+                                                    <option value="AM" <%= prodata.data[`ampm-${i}`] === 'AM' ? 'selected' : '' %> >AM</option>
+                                                    <option value="PM" <%= prodata.data[`ampm-${i}`] === 'PM' ? 'selected' : '' %> >PM</option>
+                                                </select></td>
+                                                <td style="text-align: center;padding: 6px;"><input type="checkbox" name="qty-<%=i%>" class="qty-value"  onclick="updateTotal(this)"  <%= prodata.data[`qty-${i}`] === 'on' ? 'checked' : '' %>></td>
+                                                <td  style="padding: 6px;"><input type="text" name="tot-<%=i%>" class="form-control  tot-value" readonly value="<%= prodata.data[`tot-${i}`] %>"></td>
                                             </tr>
                                           <% } %>
                                         
@@ -95,76 +72,109 @@
                          
                     </div>
                 </div>
-                
-                <% j++; }); %>  
-        </div>
-        <!--End::row-1 -->
-    </form>
-
-    <script>
-        function calculateTotal1() {
-          let totalQty = 0;
-          let totalTot = 0;  
-           $('.tot-value').each(function() {
-            const totValue = parseFloat($(this).val()) || 0;  
-            totalTot += totValue;
-          });
-       
-          $('#totalTot').val(totalTot);
-        } 
-       </script>
-
-<script> 
-function updateTotal1(checkbox) { 
-const row = checkbox.closest('tr');
-const totInput = row.querySelector('.tot-value-1');
-const currentValue = parseFloat(totInput.value) || 0;
-
-// Update the "TOT BAR" field for the row
-totInput.value = checkbox.checked ? currentValue + 18 : currentValue - 18;
-
-// Recalculate Unit 1 Total
-let u1totalTot = 0;  
-$('.tot-value-1').each(function() {
-    const tot1Value = parseFloat($(this).val()) || 0;  
-    u1totalTot += tot1Value;
-});
-
-// Update Unit 1 Total Bars field with the calculated value
-$('#u1totalTot').val(u1totalTot);
-
-$('#totalTot').val(
-parseFloat($('#u1totalTot').val()) + parseFloat($('#u2totalTot').val())
-);
-
-}
-
-
-function updateTotal2(checkbox) { 
-const row = checkbox.closest('tr');
-const totInput = row.querySelector('.tot-value-2');
-const currentValue = parseFloat(totInput.value) || 0;
-
-// Update the "TOT BAR" field for the row
-totInput.value = checkbox.checked ? currentValue + 18 : currentValue - 18;
-
-// Recalculate Unit 1 Total
-let u2totalTot = 0;  
-$('.tot-value-2').each(function() {
-    const tot2Value = parseFloat($(this).val()) || 0;  
-    u2totalTot += tot2Value;
-});
-
-// Update Unit 1 Total Bars field with the calculated value
-$('#u2totalTot').val(u2totalTot);
-
-$('#totalTot').val(
-parseFloat($('#u1totalTot').val()) + parseFloat($('#u2totalTot').val())
-);
-
-}
-</script>
-
-
-        <% script = ' <script src="/assets/js/producdion.js"></script> ' %>
-        
+                <div class="col-xxl-4 col-xl-4">
+                    <div class="card custom-card">
+                       
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Row</th>
+                                            <th scope="col" class="text-center" >Time</th>
+                                            <th scope="col" class="text-center">AM/PM</th>                                        
+                                            <th scope="col" class="text-center">Quantity</th>   
+                                            <th scope="col" class="text-center">Bars</th>          
+                                        </tr>
+                                        <% for (let i = 11; i <= 20; i++) { %>
+                                            <tr>
+                                                <td style="padding: 6px;text-align: center;"><b><%= i %></b></td>
+                                                <td  style="padding: 6px;"><input type="text" name="time-<%=i%>" class="form-control" value="<%= prodata.data[`time-${i}`] %>"></td>
+                                                <td  style="padding: 6px;"><select style="width: 80px;"  name="ampm-<%=i%>"   class="form-control form-select">
+                                                    <option value="AM" <%= prodata.data[`ampm-${i}`] === 'AM' ? 'selected' : '' %> >AM</option>
+                                                    <option value="PM" <%= prodata.data[`ampm-${i}`] === 'PM' ? 'selected' : '' %> >PM</option>
+                                                </select></td>
+                                                <td style="text-align: center;padding: 6px;"><input type="checkbox" name="qty-<%=i%>" class="qty-value"  onclick="updateTotal(this)"  <%= prodata.data[`qty-${i}`] === 'on' ? 'checked' : '' %>></td>
+                                                <td  style="padding: 6px;"><input type="text" name="tot-<%=i%>" class="form-control  tot-value" readonly value="<%= prodata.data[`tot-${i}`] %>"></td>
+                                            </tr>
+                                          <% } %>
+                                        
+                                    </thead>
+                                    <tbody> 
+                                         
+                                    </tbody>
+                                </table>
+     
+                            </div>
+                        </div>
+                         
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4">
+                    <div class="card custom-card">
+                       
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Row</th>
+                                            <th scope="col" class="text-center" >Time</th>
+                                            <th scope="col" class="text-center">AM/PM</th>                                        
+                                            <th scope="col" class="text-center">Quantity</th>   
+                                            <th scope="col" class="text-center">Bars</th>          
+                                        </tr>
+                                        <% for (let i = 21; i <= 30; i++) { %>
+                                            <tr>
+                                                <td style="padding: 6px;text-align: center;"><b><%= i %></b></td>
+                                                <td  style="padding: 6px;"><input type="text" name="time-<%=i%>" class="form-control" value="<%= prodata.data[`time-${i}`] %>"></td>
+                                                <td  style="padding: 6px;"><select style="width: 80px;"  name="ampm-<%=i%>"   class="form-control form-select">
+                                                    <option value="AM" <%= prodata.data[`ampm-${i}`] === 'AM' ? 'selected' : '' %> >AM</option>
+                                                    <option value="PM" <%= prodata.data[`ampm-${i}`] === 'PM' ? 'selected' : '' %> >PM</option>
+                                                </select></td>
+                                                <td style="text-align: center;padding: 6px;"><input type="checkbox" name="qty-<%=i%>" class="qty-value"  onclick="updateTotal(this)"  <%= prodata.data[`qty-${i}`] === 'on' ? 'checked' : '' %>></td>
+                                                <td  style="padding: 6px;"><input type="text" name="tot-<%=i%>" class="form-control tot-value" readonly value="<%= prodata.data[`tot-${i}`] %>"></td>
+                                            </tr>
+                                          <% } %>
+                                        
+                                    </thead>
+                                    <tbody> 
+                                         
+                                    </tbody>
+                                </table>
+     
+                            </div>
+                        </div>
+                         
+                    </div>
+                </div>
+                 
+     
+            </div> 
+        </form>
+     
+    
+    <script> 
+    function updateTotal(checkbox) {
+        const row = checkbox.closest('tr');
+        const totInput = row.querySelector('.tot-value');
+        const currentValue = parseFloat(totInput.value) || 0;
+    
+        // Update the total for the row based on the checkbox state
+        totInput.value = checkbox.checked ? currentValue + 18 : Math.max(0, currentValue - 18); // Avoid negative totals
+    
+        // Calculate the grand total
+        let gtotal = 0;
+        $('.tot-value').each(function () {
+            const totValue = parseFloat($(this).val()) || 0;
+            gtotal += totValue;
+        });
+    
+        // Update the grand total field
+        $('#totalTot').val(gtotal);
+    }
+    
+    </script>
+    
+            <% script = ' <script src="/assets/js/production.js"></script> ' %>
+            
