@@ -46,14 +46,12 @@ router.post('/create', async function(req, res, next) {
       const endOfDay = new Date();
       endOfDay.setHours(23, 59, 59, 999);
 
-      const existingProduction = await Production.findOne({
-      unit: unit,
-      date: { $gte: startOfDay, $lte: endOfDay },
+      const productionCount = await Production.countDocuments({
+        unit: unit,
+        date: { $gte: startOfDay, $lte: endOfDay },
       });
-
-      let newRound = 1;
-
-      if (existingProduction) {  newRound = existingProduction.round + 1;}
+      
+      let newRound = productionCount + 1;
 
       const production = new Production({
       unit,
