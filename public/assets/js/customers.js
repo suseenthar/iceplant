@@ -144,6 +144,9 @@ $('#editcustomers').submit(function(event) {
         $('#edit-status').val(response.data.status);
         $('#edit-notes').val(response.data.notes);  
         $('#customerid').val(response.data._id); 
+
+        $('#edit-email').val(response.data.email);  
+        $('#edit-gst').val(response.data.gst);  
         
         jQuery('#edit-customer').modal('show') 
       })

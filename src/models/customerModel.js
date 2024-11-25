@@ -7,6 +7,8 @@ const CustomerSchema = new mongoose.Schema({
     address: { type: String, required: true },
     city: { type: String, required: true },
     postcode: { type: String, required: true }, 
+    email: { type: String, required: true },
+    gst: { type: String, required: true },
     phone: { type: String, required: true }, 
     status: { type: String, default: true },
     isDeleted: { type: Boolean, default: false }, 

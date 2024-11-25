@@ -20,8 +20,8 @@ router.get('/', async function(req, res, next) {
 router.post('/create', async function(req, res, next) {
     try {   
       const createdBy = req.user.id;  
-      const { name,discount,address, city,postcode,phone,status} = req.body;
-      const createCustomer = new Customer({ name,discount,address, city,postcode,phone,status, createdBy  });
+      const { name,discount,address, city,postcode,phone,email,gst,status} = req.body;
+      const createCustomer = new Customer({ name,discount,address, city,postcode,phone,email,gst,status, createdBy  });
       await createCustomer.save();
       return  res.json({ success: true, message: 'Customer Created Successfully!'  });
     } catch (err) {
@@ -42,8 +42,8 @@ router.post('/edit', async function(req, res, next) {
 router.put('/edit', async function(req, res, next) {
 try {
    
-  const { name,address, city,postcode,phone,status,discount } = req.body;
-  await Customer.findByIdAndUpdate(req.body.customerid, { name,address, city,postcode,phone,status,discount }); 
+  const { name,address, city,postcode,phone,status,email,gst,discount } = req.body;
+  await Customer.findByIdAndUpdate(req.body.customerid, { name,address, city,postcode,phone,status,email,gst,discount }); 
      res.json({ success: true, message: 'Customer Updated!' });
 } catch (err) {
   res.status(500).send(err.message);

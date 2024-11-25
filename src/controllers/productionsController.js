@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Unit = require('@model/unitModel');
 const Production = require('@model/productionModel');
 const Sequence = require('@model/sequenceModel'); 
+var pdf = require('html-pdf-node'); 
  
 /* GET PRODUCTIONS. */
 router.get('/', async function(req, res, next) { 
@@ -35,6 +36,8 @@ router.get('/edit/:id', async function(req, res, next) {
 }); 
 
 });
+
+
  /* CREATE PRODUCTIONS. */
 router.post('/create', async function(req, res, next) {
     try {
@@ -87,5 +90,101 @@ router.post('/delete/', async (req, res) => {
   }
 });
 
+
+/* GET DOWNLOAD. */
+router.get('/download/:id', async function(req, res, next) { 
+  try {
+    const prodata = await Production.findById(req.params.id);
+    const unitlist = await Unit.find({ isDeleted: false , createdBy: req.user.id  });
+
+
+    let rows = '';
+    for (let i = 1; i < 30; i++) {
+        const item = prodata.data;  
+    
+        rows += `
+           <tr>
+            <td>${i + 1}</td>
+              <td>${item[`time-${i}`] ? item[`time-${i}`] : '--'}</td>
+             <td>${item[`ampm-${i}`] ? item[`ampm-${i}`] : '--'}</td>
+            <td>${item[`qty-${i}`] ? item[`qty-${i}`] : '--'}</td>
+             <td>${item[`tot-${i}`] ? item[`tot-${i}`] : '--'}</td>
+         </tr>
+        `;
+    }
+    
+
+    const htmlContent = `
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Sheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #38518b;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h3>Production Sheet</h3>
+    <table>
+        <thead>
+            <tr style="background-color: #38518b;">
+                <th>SNO</th>
+                <th>Time</th>
+                <th>Am/PM</th>
+                <th>Quantity</th>
+                <th>Total Quantity</th> 
+             </tr>
+        </thead>
+        <tbody> 
+
+            ${rows}
+        </tbody>
+    </table>
+</body>
+</html>
+
+    `;
+
+    // Create a PDF buffer
+    const file = { content: htmlContent };
+    const pdfBuffer = await pdf.generatePdf(file, { format: 'A4' });
+
+    // Set headers for download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="reports.pdf"');
+    res.send(pdfBuffer);
+} catch (error) {
+    console.error('Error generating PDF:', error);
+    res.status(500).send('An error occurred while generating the PDF.');
+}
+});
 
 module.exports = router; 
